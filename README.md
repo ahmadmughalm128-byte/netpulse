@@ -1,1 +1,2 @@
-mkdir -p /home/claude/netpulse/{css,js,pages,assets} && echo "Structure created"
+NetPulse
+A Cybersecurity Toolbox + Learning Hub
