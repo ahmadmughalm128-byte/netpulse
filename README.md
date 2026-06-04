@@ -1,2 +1,1 @@
-# my-website
-NetLab is a free, open learning platform for anyone getting into networking
+mkdir -p /home/claude/netpulse/{css,js,pages,assets} && echo "Structure created"
