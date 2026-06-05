@@ -92,7 +92,7 @@ function updateNav(){
 }
 function logout(){
   localStorage.removeItem('np_user');
-  window.location.href='../index.html';
+  window.location.href='index.html';
 }
 window.logout=logout;
 updateNav();
