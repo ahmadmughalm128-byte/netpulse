@@ -1,0 +1,371 @@
+cat > /home/claude/netpulse/pages/learn.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Learn — NetPulse Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/main.css"/><link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body data-theme="dark">
+
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-pulse"></span><span class="logo-text">Net<span class="accent">Pulse</span></span><span class="logo-tag">ACADEMY</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="tools.html" class="nav-link">Tools</a>
+      <a href="learn.html" class="nav-link active">Learn</a>
+      <a href="challenges.html" class="nav-link">Challenges</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+    </div>
+    <div class="nav-actions" id="navActions">
+      <button class="btn-ghost" onclick="window.location='login.html'">Sign In</button>
+      <button class="btn-primary" onclick="window.location='register.html'">Get Started</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:80px">
+<div class="container" style="padding-top:40px;padding-bottom:32px">
+  <span class="section-tag">LEARNING HUB</span>
+  <h1 class="section-title" style="font-size:2.4rem">Learning <span class="text-gradient">Paths</span></h1>
+  <p class="section-desc">Structured from zero to job-ready. Each path includes video modules, quizzes, flashcards, and labs.</p>
+</div>
+
+<!-- PATH TABS -->
+<div class="container">
+<div class="tabs">
+  <button class="tab active" onclick="switchPath('networking',this)">📡 Networking</button>
+  <button class="tab" onclick="switchPath('security',this)">🛡️ Security</button>
+  <button class="tab" onclick="switchPath('ethical',this)">🎯 Ethical Hacking</button>
+  <button class="tab" onclick="switchPath('cisco',this)">🔵 CCNA Prep</button>
+  <button class="tab" onclick="switchPath('flashcards',this)">🃏 Flashcards</button>
+</div>
+
+<!-- NETWORKING PATH -->
+<div id="path-networking">
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:32px;padding-bottom:60px" class="learn-grid">
+    <div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div>
+            <h2 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text-primary);margin-bottom:4px">Networking Fundamentals</h2>
+            <div style="font-size:.82rem;color:var(--text-muted);font-family:'Space Mono',monospace">📚 24 modules · 🎯 3 quizzes · ⏱ ~12 hours · 🆓 FREE</div>
+          </div>
+          <span class="path-level beginner">BEGINNER</span>
+        </div>
+        <div style="height:6px;background:var(--border);border-radius:3px;margin-bottom:8px"><div style="height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:3px;width:35%"></div></div>
+        <div style="font-size:.78rem;color:var(--text-muted);font-family:'Space Mono',monospace">8 / 24 modules complete · 35%</div>
+      </div>
+
+      <div class="module-list" id="networkingModules"></div>
+    </div>
+
+    <div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;position:sticky;top:90px">
+        <h3 style="font-family:var(--font-display);font-size:1rem;margin-bottom:16px;color:var(--text-primary)">📋 What You'll Learn</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          ${['OSI Model (7 layers)','TCP/IP Protocol Suite','IP Addressing & Classes','Subnetting & CIDR','Routing Protocols (RIP, OSPF, BGP)','Switching & VLANs','NAT & PAT','DNS & DHCP','Firewalls & ACLs','Network Troubleshooting'].map(t=>`<li style="font-size:.85rem;color:var(--text-secondary);display:flex;gap:8px;align-items:center"><span style="color:var(--green);flex-shrink:0">✓</span>${t}</li>`).join('')}
+        </ul>
+        <div style="margin-top:20px;padding:14px;background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:.78rem;color:var(--text-muted);font-family:'Space Mono',monospace;margin-bottom:8px">CERTIFICATION PREP</div>
+          <div style="font-size:.88rem;color:var(--text-primary)">CompTIA Network+<br/>Cisco CCNA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECURITY PATH -->
+<div id="path-security" style="display:none">
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:32px;padding-bottom:60px" class="learn-grid">
+    <div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div>
+            <h2 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text-primary);margin-bottom:4px">Cybersecurity Essentials</h2>
+            <div style="font-size:.82rem;color:var(--text-muted);font-family:'Space Mono',monospace">📚 38 modules · 🎯 6 quizzes · ⏱ ~28 hours · 🆓 FREE</div>
+          </div>
+          <span class="path-level intermediate">INTERMEDIATE</span>
+        </div>
+        <div style="height:6px;background:var(--border);border-radius:3px;margin-bottom:8px"><div style="height:100%;background:linear-gradient(90deg,var(--yellow),var(--orange));border-radius:3px;width:0%"></div></div>
+        <div style="font-size:.78rem;color:var(--text-muted);font-family:'Space Mono',monospace">0 / 38 modules complete · 0%</div>
+      </div>
+      <div class="module-list" id="securityModules"></div>
+    </div>
+    <div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;position:sticky;top:90px">
+        <h3 style="font-family:var(--font-display);font-size:1rem;margin-bottom:16px;color:var(--text-primary)">📋 What You'll Learn</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          ${['Threat Landscape & Attack Types','Malware Analysis Basics','Firewall Configuration','VPN Technologies','IDS/IPS Systems','Cryptography & PKI','Security Policies','Incident Response','Risk Management','CompTIA Security+ Prep'].map(t=>`<li style="font-size:.85rem;color:var(--text-secondary);display:flex;gap:8px;align-items:center"><span style="color:var(--green);flex-shrink:0">✓</span>${t}</li>`).join('')}
+        </ul>
+        <div style="margin-top:20px"><a href="register.html" class="btn-primary" style="width:100%;padding:12px;text-align:center;display:block">Start This Path →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ETHICAL PATH -->
+<div id="path-ethical" style="display:none">
+  <div style="background:linear-gradient(135deg,var(--bg-card),rgba(124,58,237,.05));border:1px solid rgba(124,58,237,.2);border-radius:var(--radius-lg);padding:40px;text-align:center;margin-bottom:32px">
+    <div style="font-size:3rem;margin-bottom:16px">🔒</div>
+    <h2 style="font-family:var(--font-display);font-size:1.5rem;color:var(--text-primary);margin-bottom:8px">Ethical Hacking & Pentesting</h2>
+    <p style="color:var(--text-muted);max-width:480px;margin:0 auto 24px;line-height:1.7">52 advanced modules, 12 quizzes, 8 hands-on lab environments. CEH and OSCP preparation. Requires Pro plan.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="pricing.html" class="btn-primary">Unlock with Pro →</a>
+      <a href="register.html" class="btn-outline">Create Free Account</a>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px">
+    ${['Reconnaissance & OSINT','Scanning & Enumeration','Vulnerability Assessment','Exploitation Basics','Post-Exploitation','Password Attacks','Web App Pentesting','Social Engineering','Wireless Security','Report Writing'].map((t,i)=>`
+    <div style="background:var(--bg-card);border:1px solid rgba(124,58,237,.15);border-radius:var(--radius);padding:16px;opacity:.7">
+      <div style="font-size:1.2rem;margin-bottom:8px">🔒</div>
+      <div style="font-family:var(--font-display);font-size:.88rem;font-weight:700;color:var(--text-primary);margin-bottom:4px">${t}</div>
+      <div style="font-size:.75rem;color:var(--text-muted)">PRO module</div>
+    </div>`).join('')}
+  </div>
+</div>
+
+<!-- CCNA PATH -->
+<div id="path-cisco" style="display:none">
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin-bottom:24px">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+      <span style="font-size:2.5rem">🔵</span>
+      <div>
+        <h2 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text-primary);margin-bottom:4px">Cisco CCNA 200-301 Prep</h2>
+        <div style="font-size:.82rem;color:var(--text-muted);font-family:'Space Mono',monospace">44 modules · mapped to exam objectives · 🆓 Partial FREE</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+      ${[
+        {domain:'Network Fundamentals',pct:20},
+        {domain:'Network Access',pct:20},
+        {domain:'IP Connectivity',pct:25},
+        {domain:'IP Services',pct:10},
+        {domain:'Security Fundamentals',pct:15},
+        {domain:'Automation & Programmability',pct:10},
+      ].map(d=>`<div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:.82rem;font-weight:700;font-family:var(--font-display);color:var(--text-primary);margin-bottom:6px">${d.domain}</div>
+        <div style="font-size:.72rem;color:var(--accent);font-family:'Space Mono',monospace">${d.pct}% of exam</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="module-list" id="ciscoModules"></div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="path-flashcards" style="display:none;padding-bottom:60px">
+  <div style="max-width:600px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:32px">
+      <h2 style="font-family:var(--font-display);font-size:1.5rem;color:var(--text-primary);margin-bottom:8px">🃏 Flashcards</h2>
+      <p style="color:var(--text-muted)">Tap the card to reveal the answer. Use arrow keys or buttons to navigate.</p>
+    </div>
+    <div id="flashcard" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 36px;text-align:center;min-height:220px;cursor:pointer;transition:.3s;user-select:none;position:relative" onclick="flipCard()">
+      <div id="cardSide" style="font-size:.7rem;font-family:'Space Mono',monospace;color:var(--text-muted);margin-bottom:16px;letter-spacing:.1em">FRONT · CLICK TO FLIP</div>
+      <div id="cardText" style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--text-primary);line-height:1.4"></div>
+      <div id="cardHint" style="font-size:.82rem;color:var(--text-muted);margin-top:12px"></div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:12px">
+      <button onclick="prevCard()" class="btn-outline">← Prev</button>
+      <span id="cardCounter" style="font-family:'Space Mono',monospace;font-size:.8rem;color:var(--text-muted)">1 / 20</span>
+      <button onclick="nextCard()" class="btn-outline">Next →</button>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
+      <button onclick="markCard('hard')" style="padding:8px 18px;background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.2);color:var(--red);border-radius:8px;cursor:pointer;font-family:var(--font-display);font-size:.82rem">😰 Hard</button>
+      <button onclick="markCard('ok')" style="padding:8px 18px;background:rgba(255,189,36,.1);border:1px solid rgba(255,189,36,.2);color:var(--yellow);border-radius:8px;cursor:pointer;font-family:var(--font-display);font-size:.82rem">🤔 OK</button>
+      <button onclick="markCard('easy')" style="padding:8px 18px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);color:var(--green);border-radius:8px;cursor:pointer;font-family:var(--font-display);font-size:.82rem">✅ Easy</button>
+    </div>
+    <div id="cardProgress" style="display:flex;gap:4px;margin-top:20px;flex-wrap:wrap;justify-content:center"></div>
+  </div>
+</div>
+
+</div><!-- end container -->
+</div><!-- end padding-top -->
+
+<!-- MODULE READER MODAL -->
+<div id="moduleModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;overflow-y:auto;padding:40px 24px">
+  <div style="max-width:720px;margin:0 auto;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;position:relative">
+    <button onclick="closeModule()" style="position:absolute;top:16px;right:16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;color:var(--text-secondary);padding:8px 14px;cursor:pointer;font-family:var(--font-display)">✕ Close</button>
+    <div id="moduleContent"></div>
+  </div>
+</div>
+
+<footer class="footer"><div class="container"><div class="footer-bottom" style="border-top:1px solid var(--border);padding-top:32px"><p>© 2025 NetPulse Academy</p><div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div></div></div></footer>
+
+<script src="../js/main.js"></script>
+<script>
+/* ── Path switcher ── */
+function switchPath(id,btn){
+  document.querySelectorAll('[id^="path-"]').forEach(el=>el.style.display='none');
+  document.getElementById('path-'+id).style.display='block';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  history.replaceState(null,'','#'+id);
+}
+// Hash routing
+const pHash=location.hash.replace('#','');
+if(['networking','security','ethical','cisco','flashcards'].includes(pHash)){
+  const btn=[...document.querySelectorAll('.tab')].find(t=>(t.getAttribute('onclick')||'').includes("'"+pHash+"'"));
+  switchPath(pHash,btn);
+}
+
+/* ── Module data ── */
+const networkingMods=[
+  {n:1,title:'Introduction to Networking',time:'25 min',xp:30,done:true,content:'<h2>Introduction to Networking</h2><p>A computer network is a group of interconnected devices that share resources and information. Networks range from simple two-computer setups to global internet infrastructure.</p><h3>Key Concepts</h3><ul><li><strong>Node</strong>: Any device connected to a network (computer, printer, phone)</li><li><strong>Link</strong>: The communication channel connecting nodes</li><li><strong>Protocol</strong>: Rules governing how data is transmitted</li><li><strong>Bandwidth</strong>: Maximum data transfer rate, measured in bps</li></ul><h3>Network Types</h3><ul><li><strong>LAN</strong>: Local Area Network — covers a small geographic area (building, office)</li><li><strong>WAN</strong>: Wide Area Network — covers large areas, uses leased lines or internet</li><li><strong>MAN</strong>: Metropolitan Area Network — city-scale</li><li><strong>PAN</strong>: Personal Area Network — Bluetooth devices around a person</li></ul>'},
+  {n:2,title:'The OSI Model',time:'35 min',xp:50,done:true,content:'<h2>The OSI Model</h2><p>The Open Systems Interconnection (OSI) model is a conceptual framework that standardizes network communication into 7 layers.</p><div style="display:flex;flex-direction:column;gap:8px;margin:20px 0">'+'<div style="padding:10px 16px;border-radius:8px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2)"><strong style="color:var(--accent)">7 — Application</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">HTTP, FTP, DNS, SMTP</span></div><div style="padding:10px 16px;border-radius:8px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15)"><strong style="color:var(--accent)">6 — Presentation</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">SSL/TLS, encryption, compression</span></div><div style="padding:10px 16px;border-radius:8px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2)"><strong style="color:#a78bfa">5 — Session</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">Session management, RPC</span></div><div style="padding:10px 16px;border-radius:8px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.15)"><strong style="color:#a78bfa">4 — Transport</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">TCP, UDP — port addressing</span></div><div style="padding:10px 16px;border-radius:8px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.15)"><strong style="color:var(--green)">3 — Network</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">IP, ICMP, routing</span></div><div style="padding:10px 16px;border-radius:8px;background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.1)"><strong style="color:var(--green)">2 — Data Link</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">Ethernet, MAC addresses, switches</span></div><div style="padding:10px 16px;border-radius:8px;background:rgba(255,189,36,.05);border:1px solid rgba(255,189,36,.1)"><strong style="color:var(--yellow)">1 — Physical</strong><span style="color:var(--text-muted);margin-left:8px;font-size:.85rem">Cables, fiber, radio waves</span></div></div><p style="font-family:\'Space Mono\',monospace;font-size:.82rem;color:var(--text-muted)">Mnemonic: "All People Seem To Need Data Processing"</p>'},
+  {n:3,title:'TCP/IP Protocol Suite',time:'40 min',xp:50,done:true,content:'<h2>TCP/IP Protocol Suite</h2><p>TCP/IP is the foundational protocol suite of the internet. Unlike OSI (7 layers), TCP/IP has 4 layers.</p>'},
+  {n:4,title:'IP Addressing Fundamentals',time:'30 min',xp:40,done:true,content:'<h2>IP Addressing</h2><p>An IP address is a 32-bit number (IPv4) used to uniquely identify devices on a network. Written in dotted-decimal notation.</p>'},
+  {n:5,title:'Subnetting Basics',time:'45 min',xp:60,done:true,content:'<h2>Subnetting</h2><p>Subnetting divides a large network into smaller sub-networks. This improves security, performance, and address management.</p>'},
+  {n:6,title:'CIDR Notation',time:'20 min',xp:30,done:true,content:'<h2>CIDR Notation</h2><p>Classless Inter-Domain Routing (CIDR) replaces the old class-based system. Format: IP/prefix, e.g. 192.168.1.0/24</p>'},
+  {n:7,title:'Routing Fundamentals',time:'35 min',xp:50,done:true,content:'<h2>Routing</h2><p>Routing is the process of selecting paths in a network to send network traffic. Routers use routing tables to forward packets.</p>'},
+  {n:8,title:'Switching & VLANs',time:'30 min',xp:40,done:true,content:'<h2>Switching & VLANs</h2><p>Switches operate at Layer 2 and forward frames based on MAC addresses. VLANs logically segment a network.</p>'},
+  {n:9,title:'DNS — Domain Name System',time:'25 min',xp:35,done:false,content:'<h2>DNS</h2><p>DNS translates human-readable domain names to IP addresses. It uses a hierarchical, distributed database.</p>'},
+  {n:10,title:'DHCP',time:'20 min',xp:30,done:false,content:'<h2>DHCP</h2><p>Dynamic Host Configuration Protocol automatically assigns IP addresses to devices on a network.</p>'},
+  {n:11,title:'NAT & PAT',time:'30 min',xp:40,done:false,content:'<h2>NAT & PAT</h2><p>Network Address Translation maps private IPs to public IPs. PAT (Port Address Translation) allows multiple devices to share one public IP.</p>'},
+  {n:12,title:'Firewalls & ACLs',time:'35 min',xp:50,done:false},
+  {n:13,title:'Wireless Networking 802.11',time:'30 min',xp:40,done:false},
+  {n:14,title:'Network Troubleshooting',time:'40 min',xp:60,done:false},
+];
+
+const securityMods=[
+  {n:1,title:'Intro to Cybersecurity',time:'25 min',xp:30,done:false},
+  {n:2,title:'CIA Triad',time:'20 min',xp:25,done:false},
+  {n:3,title:'Threat Actors & Motivations',time:'30 min',xp:40,done:false},
+  {n:4,title:'Types of Malware',time:'35 min',xp:45,done:false},
+  {n:5,title:'Social Engineering Attacks',time:'30 min',xp:40,done:false},
+  {n:6,title:'Cryptography Fundamentals',time:'40 min',xp:55,done:false},
+  {n:7,title:'Public Key Infrastructure (PKI)',time:'35 min',xp:50,done:false},
+  {n:8,title:'Firewall Types & Configuration',time:'30 min',xp:45,done:false},
+];
+
+const ciscoMods=[
+  {n:1,title:'CCNA Overview & Exam Format',time:'20 min',xp:25,done:false},
+  {n:2,title:'Network Fundamentals (20%)',time:'45 min',xp:60,done:false},
+  {n:3,title:'Network Access (20%)',time:'40 min',xp:55,done:false},
+  {n:4,title:'IP Connectivity (25%)',time:'50 min',xp:70,done:false},
+  {n:5,title:'IP Services (10%)',time:'30 min',xp:40,done:false},
+  {n:6,title:'Security Fundamentals (15%)',time:'35 min',xp:50,done:false},
+];
+
+function renderModules(id,mods){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.innerHTML=mods.map(m=>`
+    <div class="module-item ${m.done?'completed':''}" onclick="openModule(${JSON.stringify(m).replace(/"/g,'&quot;')})">
+      <div class="module-num">${m.done?'✓':m.n}</div>
+      <div class="module-info">
+        <div class="module-name">${m.title}</div>
+        <div class="module-meta">⏱ ${m.time} · ⚡ +${m.xp} XP${m.done?' · ✅ Complete':''}</div>
+      </div>
+      <div style="color:var(--accent);font-size:.85rem;margin-left:auto;padding-left:12px">${m.done?'Review →':'Start →'}</div>
+    </div>`).join('');
+}
+renderModules('networkingModules',networkingMods);
+renderModules('securityModules',securityMods);
+renderModules('ciscoModules',ciscoMods);
+
+function openModule(m){
+  if(!m.content){
+    showToast('Full content loading — create an account to track progress!','info');
+    return;
+  }
+  document.getElementById('moduleContent').innerHTML=`
+    <div style="font-family:'Space Mono',monospace;font-size:.75rem;color:var(--text-muted);margin-bottom:8px">MODULE ${m.n} · ${m.time} · +${m.xp} XP</div>
+    ${m.content}
+    <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);display:flex;gap:12px;justify-content:flex-end">
+      <button onclick="closeModule()" class="btn-outline">← Back</button>
+      <button onclick="completeModule();closeModule()" class="btn-primary">Mark Complete +${m.xp} XP ✓</button>
+    </div>`;
+  document.getElementById('moduleModal').style.display='block';
+  document.body.style.overflow='hidden';
+}
+function closeModule(){document.getElementById('moduleModal').style.display='none';document.body.style.overflow='';}
+function completeModule(){
+  try{
+    const u=JSON.parse(localStorage.getItem('np_user')||'{}');
+    if(u.email){u.xp=(u.xp||0)+50;u.modules=(u.modules||0)+1;localStorage.setItem('np_user',JSON.stringify(u));showToast('+50 XP earned!','success');}
+    else{showToast('Sign in to track progress!','info');}
+  }catch(e){}
+}
+
+/* ── Flashcards ── */
+const flashcards=[
+  {q:'What does OSI stand for?',a:'Open Systems Interconnection',hint:'7-layer networking model'},
+  {q:'Which port does SSH use?',a:'Port 22',hint:'Secure Shell — encrypted remote access'},
+  {q:'What is a subnet mask?',a:'A 32-bit number that separates the network and host portions of an IP address',hint:'e.g. 255.255.255.0 = /24'},
+  {q:'What does DHCP stand for?',a:'Dynamic Host Configuration Protocol',hint:'Auto-assigns IP addresses'},
+  {q:'What layer does IP operate at?',a:'Layer 3 — Network Layer',hint:'OSI model'},
+  {q:'What is the loopback address?',a:'127.0.0.1',hint:'Used to test local network stack'},
+  {q:'What does ARP stand for?',a:'Address Resolution Protocol',hint:'Maps IP to MAC addresses'},
+  {q:'What is a VLAN?',a:'Virtual Local Area Network — logical network segment on same physical infrastructure',hint:'Layer 2 segmentation'},
+  {q:'What port does DNS use?',a:'Port 53 (TCP and UDP)',hint:'Domain Name System'},
+  {q:'What is the difference between TCP and UDP?',a:'TCP is connection-oriented, reliable, ordered. UDP is connectionless, fast, unreliable.',hint:'Transport layer protocols'},
+  {q:'What is NAT?',a:'Network Address Translation — maps private IPs to public IPs',hint:'Conserves public IP addresses'},
+  {q:'What does CIA stand for in security?',a:'Confidentiality, Integrity, Availability',hint:'The three pillars of information security'},
+  {q:'What is a firewall?',a:'A network security device that monitors and filters incoming/outgoing network traffic based on security rules',hint:'First line of defense'},
+  {q:'What is a DDoS attack?',a:'Distributed Denial of Service — flooding a target with traffic from multiple sources to overwhelm it',hint:'Availability attack'},
+  {q:'What does SSL/TLS do?',a:'Encrypts data in transit between client and server — provides authentication, confidentiality, integrity',hint:'Used in HTTPS'},
+  {q:'What is port 443?',a:'HTTPS — encrypted web traffic using TLS/SSL',hint:'Secure version of HTTP'},
+  {q:'What is a default gateway?',a:'The router IP address that a host uses to send traffic outside its local subnet',hint:'Your traffic exit point'},
+  {q:'What is OSPF?',a:'Open Shortest Path First — a link-state routing protocol that finds the fastest path using Dijkstra\'s algorithm',hint:'Interior Gateway Protocol'},
+  {q:'What is a MAC address?',a:'Media Access Control address — a unique 48-bit hardware identifier assigned to a NIC',hint:'Layer 2 identifier, format: AA:BB:CC:DD:EE:FF'},
+  {q:'What does CIDR stand for?',a:'Classless Inter-Domain Routing — a method for allocating IP addresses using prefix notation (e.g. /24)',hint:'Replaces classful networking'},
+];
+let cardIdx=0;let cardFlipped=false;const cardMarks=new Array(flashcards.length).fill(null);
+
+function renderCard(){
+  const c=flashcards[cardIdx];
+  const el=document.getElementById('flashcard');
+  const txt=document.getElementById('cardText');
+  const side=document.getElementById('cardSide');
+  const hint=document.getElementById('cardHint');
+  cardFlipped=false;
+  txt.textContent=c.q;
+  side.textContent='FRONT · CLICK TO FLIP';
+  hint.textContent='';
+  el.style.borderColor='var(--border)';
+  document.getElementById('cardCounter').textContent=`${cardIdx+1} / ${flashcards.length}`;
+  updateCardProgress();
+}
+function flipCard(){
+  const c=flashcards[cardIdx];
+  const el=document.getElementById('flashcard');
+  if(!cardFlipped){
+    document.getElementById('cardText').textContent=c.a;
+    document.getElementById('cardSide').textContent='BACK · ANSWER';
+    document.getElementById('cardHint').textContent=`💡 ${c.hint}`;
+    el.style.borderColor='var(--accent)';
+    cardFlipped=true;
+  } else {
+    renderCard();
+  }
+}
+function nextCard(){cardIdx=(cardIdx+1)%flashcards.length;renderCard();}
+function prevCard(){cardIdx=(cardIdx-1+flashcards.length)%flashcards.length;renderCard();}
+function markCard(level){
+  cardMarks[cardIdx]=level;
+  const colors={hard:'var(--red)',ok:'var(--yellow)',easy:'var(--green)'};
+  document.getElementById('flashcard').style.borderColor=colors[level];
+  updateCardProgress();
+  setTimeout(nextCard,400);
+}
+function updateCardProgress(){
+  const colors={hard:'var(--red)',ok:'var(--yellow)',easy:'var(--green)',null:'var(--border)'};
+  document.getElementById('cardProgress').innerHTML=flashcards.map((_,i)=>`<div style="width:10px;height:10px;border-radius:50%;background:${colors[cardMarks[i]]};${i===cardIdx?'box-shadow:0 0 6px var(--accent);transform:scale(1.3)':''}"></div>`).join('');
+}
+renderCard();
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('path-flashcards').style.display!=='none'){
+    if(e.key==='ArrowRight')nextCard();
+    if(e.key==='ArrowLeft')prevCard();
+    if(e.key===' '){e.preventDefault();flipCard();}
+  }
+});
+</script>
+</body>
+</html>
+HTMLEOF
+echo "learn.html done"
