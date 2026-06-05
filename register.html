@@ -1,0 +1,140 @@
+cat > /home/claude/netpulse/pages/register.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Create Account — NetPulse Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/main.css"/><link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body data-theme="dark">
+<div class="hero-glow glow-1" style="position:fixed;top:-200px;left:-200px"></div>
+<div class="hero-glow glow-2" style="position:fixed;bottom:-200px;right:-200px"></div>
+
+<div class="form-page">
+  <div class="form-card" style="max-width:520px;animation:slideInUp .4s ease">
+    <a href="../index.html" class="form-logo nav-logo">
+      <span class="logo-pulse"></span>
+      <span class="logo-text">Net<span class="accent">Pulse</span></span>
+      <span class="logo-tag">ACADEMY</span>
+    </a>
+    <h1 class="form-title">Create your account</h1>
+    <p class="form-subtitle">Join 50,000+ IT professionals. Free forever.</p>
+
+    <div id="regError" style="display:none;background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;font-size:.85rem;color:var(--red)"></div>
+
+    <!-- Plan select -->
+    <div class="form-group">
+      <label class="form-label">Choose Plan</label>
+      <div class="plan-options">
+        <div class="plan-opt selected" id="planFree" onclick="selectPlan('free')">
+          <div class="plan-opt-name">🆓 Free</div>
+          <div class="plan-opt-price">$0 / forever</div>
+        </div>
+        <div class="plan-opt" id="planPro" onclick="selectPlan('pro')">
+          <div class="plan-opt-name">⚡ Pro</div>
+          <div class="plan-opt-price">$9.99 / month</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group">
+        <label class="form-label" for="regFirst">First Name</label>
+        <input class="form-input" id="regFirst" type="text" placeholder="Alex" autocomplete="given-name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="regLast">Last Name</label>
+        <input class="form-input" id="regLast" type="text" placeholder="Smith" autocomplete="family-name"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="regEmail">Email Address</label>
+      <input class="form-input" id="regEmail" type="email" placeholder="you@example.com" autocomplete="email"/>
+    </div>
+    <div class="form-group" style="position:relative">
+      <label class="form-label" for="regPass">Password</label>
+      <input class="form-input" id="regPass" type="password" placeholder="Min. 8 characters" autocomplete="new-password"/>
+      <button onclick="togglePw('regPass',this)" style="position:absolute;right:14px;bottom:13px;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.85rem">Show</button>
+    </div>
+
+    <!-- Password strength -->
+    <div style="margin-bottom:20px">
+      <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+        <div id="pwStrengthBar" style="height:100%;width:0%;transition:.3s ease;border-radius:2px"></div>
+      </div>
+      <div id="pwStrengthLabel" style="font-size:.72rem;color:var(--text-muted);margin-top:4px;font-family:'Space Mono',monospace"></div>
+    </div>
+
+    <div class="form-group" style="display:flex;align-items:flex-start;gap:10px">
+      <input type="checkbox" id="terms" style="margin-top:3px;accent-color:var(--accent);width:16px;height:16px"/>
+      <label for="terms" style="font-size:.84rem;color:var(--text-muted);cursor:pointer">I agree to the <a href="#" style="color:var(--accent)">Terms of Service</a> and <a href="#" style="color:var(--accent)">Privacy Policy</a></label>
+    </div>
+
+    <button class="btn-primary form-submit" onclick="doRegister()">Create Account →</button>
+    <p class="form-footer">Already have an account? <a href="login.html">Sign in →</a></p>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+let selectedPlan='free';
+function selectPlan(p){
+  selectedPlan=p;
+  document.getElementById('planFree').classList.toggle('selected',p==='free');
+  document.getElementById('planPro').classList.toggle('selected',p==='pro');
+}
+function togglePw(id,btn){
+  const el=document.getElementById(id);
+  el.type=el.type==='password'?'text':'password';
+  btn.textContent=el.type==='password'?'Show':'Hide';
+}
+document.getElementById('regPass').addEventListener('input',function(){
+  const v=this.value;
+  const bar=document.getElementById('pwStrengthBar');
+  const lbl=document.getElementById('pwStrengthLabel');
+  let score=0;
+  if(v.length>=8)score++;if(v.length>=12)score++;
+  if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+  const levels=[
+    {w:'0%',c:'transparent',t:''},
+    {w:'20%',c:'var(--red)',t:'Too weak'},
+    {w:'40%',c:'var(--orange)',t:'Weak'},
+    {w:'60%',c:'var(--yellow)',t:'Fair'},
+    {w:'80%',c:'#7ec8e3',t:'Good'},
+    {w:'100%',c:'var(--green)',t:'Strong ✓'},
+  ];
+  const lv=levels[score]||levels[0];
+  bar.style.width=lv.w;bar.style.background=lv.c;lbl.textContent=lv.t;lbl.style.color=lv.c;
+});
+function doRegister(){
+  const first=document.getElementById('regFirst').value.trim();
+  const last=document.getElementById('regLast').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pass=document.getElementById('regPass').value;
+  const terms=document.getElementById('terms').checked;
+  const err=document.getElementById('regError');
+  err.style.display='none';
+  if(!first||!last){err.textContent='Please enter your full name.';err.style.display='block';return;}
+  if(!email||!email.includes('@')){err.textContent='Please enter a valid email address.';err.style.display='block';return;}
+  if(pass.length<8){err.textContent='Password must be at least 8 characters.';err.style.display='block';return;}
+  if(!terms){err.textContent='Please accept the Terms of Service.';err.style.display='block';return;}
+  const user={
+    email,name:first+' '+last,first,last,
+    xp:100,level:1,streak:1,plan:selectedPlan,
+    achievements:['🎉 Welcome!'],
+    joined:new Date().toISOString()
+  };
+  localStorage.setItem('np_user',JSON.stringify(user));
+  showToast('Account created! Welcome to NetPulse! 🎉','success');
+  setTimeout(()=>window.location.href='dashboard.html',1000);
+}
+</script>
+</body>
+</html>
+HTMLEOF
+echo "register.html done"
+Output
+
+register.html done
