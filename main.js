@@ -86,7 +86,7 @@ function updateNav(){
       <span style="font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);padding:0 8px">
         ⚡ ${user.xp||0} XP
       </span>
-      <a href="../pages/dashboard.html" class="btn-ghost">Dashboard</a>
+      <a href="dashboard.html" class="btn-ghost">Dashboard</a>
       <button class="btn-primary" onclick="logout()">Sign Out</button>`;
   }
 }
