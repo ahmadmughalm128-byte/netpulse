@@ -1,3 +1,4 @@
+console.log("MAIN JS LOADED");
 /* ══ NETPULSE MAIN JS ══ */
 
 /* ── Navbar scroll ── */
