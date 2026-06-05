@@ -87,11 +87,11 @@ function doLogin(){
     return;
   }
 
-  if(pass!=='netpulse'){
-    err.textContent='Wrong password (demo: netpulse)';
-    err.style.display='block';
-    return;
-  }
+ if(pass.length < 4){
+  err.textContent='Simulation code too short';
+  err.style.display='block';
+  return;
+}
 
   const user={
     email,
