@@ -1,0 +1,402 @@
+cat > /home/claude/netpulse/pages/dashboard.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Dashboard — NetPulse Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/main.css"/><link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body data-theme="dark">
+
+<!-- SIDEBAR -->
+<div class="dashboard-layout">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <a href="../index.html" class="nav-logo"><span class="logo-pulse"></span><span class="logo-text">Net<span class="accent">Pulse</span></span><span class="logo-tag">ACADEMY</span></a>
+  </div>
+  <nav class="sidebar-nav">
+    <span class="sidebar-section-label">MAIN</span>
+    <a href="dashboard.html" class="sidebar-link active"><span class="s-icon">📊</span>Dashboard</a>
+    <a href="tools.html" class="sidebar-link"><span class="s-icon">⚡</span>Tools</a>
+    <a href="learn.html" class="sidebar-link"><span class="s-icon">📚</span>Learn</a>
+    <a href="challenges.html" class="sidebar-link"><span class="s-icon">🎯</span>Challenges</a>
+    <span class="sidebar-section-label">PROGRESS</span>
+    <a href="#achievements" class="sidebar-link" onclick="showSection('achievements')"><span class="s-icon">🏆</span>Achievements</a>
+    <a href="#leaderboard" class="sidebar-link" onclick="showSection('leaderboard')"><span class="s-icon">📈</span>Leaderboard</a>
+    <a href="#exams" class="sidebar-link" onclick="showSection('exams')"><span class="s-icon">📝</span>Timed Exams</a>
+    <span class="sidebar-section-label">ACCOUNT</span>
+    <a href="pricing.html" class="sidebar-link"><span class="s-icon">⭐</span>Upgrade Plan</a>
+    <a href="#" onclick="doLogout()" class="sidebar-link" style="color:var(--red);margin-top:auto"><span class="s-icon">🚪</span>Sign Out</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="dashboard-main">
+  <!-- OVERVIEW SECTION -->
+  <div id="sec-overview">
+    <div class="dash-header">
+      <div>
+        <div class="dash-title">Welcome back, <span id="dashName" class="text-gradient">Learner</span> 👋</div>
+        <div class="dash-subtitle" id="dashSub">Continue where you left off.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 18px;font-family:'Space Mono',monospace;font-size:.85rem">
+          🔥 <span id="dashStreak">0</span> day streak
+        </div>
+        <div style="background:var(--accent-dim);border:1px solid rgba(0,212,255,.2);border-radius:var(--radius);padding:10px 18px;font-family:'Space Mono',monospace;font-size:.85rem;color:var(--accent)">
+          ⚡ <span id="dashXP">0</span> XP
+        </div>
+      </div>
+    </div>
+
+    <!-- XP Bar -->
+    <div class="dash-card" style="margin-bottom:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text-primary)">Level <span id="dashLevel">1</span> — <span id="dashRankName">Network Apprentice</span></div>
+          <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;font-family:'Space Mono',monospace"><span id="dashXP2">0</span> / <span id="dashNextXP">1000</span> XP to next level</div>
+        </div>
+        <div style="font-size:2.5rem" id="dashBadgeEmoji">🌱</div>
+      </div>
+      <div class="xp-bar"><div class="xp-fill" id="dashXPBar" style="width:0%"></div></div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="stats-grid">
+      <div class="stat-card"><span class="stat-card-icon">⚡</span><div class="stat-card-val" id="sc-xp">0</div><div class="stat-card-label">Total XP</div></div>
+      <div class="stat-card"><span class="stat-card-icon">🔥</span><div class="stat-card-val" id="sc-streak">0</div><div class="stat-card-label">Day Streak</div></div>
+      <div class="stat-card"><span class="stat-card-icon">✅</span><div class="stat-card-val" id="sc-modules">0</div><div class="stat-card-label">Modules Done</div></div>
+      <div class="stat-card"><span class="stat-card-icon">🏆</span><div class="stat-card-val" id="sc-ach">0</div><div class="stat-card-label">Achievements</div></div>
+    </div>
+
+    <!-- Main dashboard grid -->
+    <div class="dash-grid">
+      <!-- Activity chart -->
+      <div class="dash-card">
+        <div class="dash-card-title">📊 Weekly Activity</div>
+        <div id="activityChart" style="display:flex;align-items:flex-end;gap:8px;height:100px;padding-top:10px"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text-muted)">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+      </div>
+      <!-- Quick actions -->
+      <div class="dash-card">
+        <div class="dash-card-title">🚀 Quick Actions</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="tools.html" class="sidebar-link" style="background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border)"><span class="s-icon">⚡</span>Open Tools</a>
+          <a href="learn.html" class="sidebar-link" style="background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border)"><span class="s-icon">📚</span>Continue Learning</a>
+          <a href="challenges.html" class="sidebar-link" style="background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border)"><span class="s-icon">🎯</span>Daily Challenge</a>
+          <a href="#exams" onclick="showSection('exams')" class="sidebar-link" style="background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border)"><span class="s-icon">📝</span>Take Exam</a>
+          <a href="pricing.html" class="sidebar-link" style="background:rgba(124,58,237,.1);border-radius:10px;border:1px solid rgba(124,58,237,.2);color:#a78bfa"><span class="s-icon">⭐</span>Upgrade to Pro</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements row -->
+    <div class="dash-card" style="margin-top:0">
+      <div class="dash-card-title">🏆 Recent Achievements</div>
+      <div id="achGrid" style="display:flex;flex-wrap:wrap;gap:12px"></div>
+    </div>
+
+    <!-- Daily tasks -->
+    <div class="dash-card" style="margin-top:24px">
+      <div class="dash-card-title">☀️ Today's Tasks <span style="font-size:.75rem;color:var(--text-muted);font-weight:400;margin-left:8px" id="taskProgress">0/3 complete</span></div>
+      <div id="taskList" style="display:flex;flex-direction:column;gap:10px;margin-top:4px"></div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS SECTION -->
+  <div id="sec-achievements" style="display:none">
+    <div class="dash-header"><div class="dash-title">🏆 Achievements</div></div>
+    <div id="allAchievements" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
+  </div>
+
+  <!-- LEADERBOARD SECTION -->
+  <div id="sec-leaderboard" style="display:none">
+    <div class="dash-header"><div class="dash-title">📈 Leaderboard</div></div>
+    <div class="dash-card">
+      <div class="dash-card-title">Weekly Top Learners</div>
+      <div id="leaderboardList"></div>
+    </div>
+  </div>
+
+  <!-- EXAMS SECTION -->
+  <div id="sec-exams" style="display:none">
+    <div class="dash-header"><div class="dash-title">📝 Timed Exams</div></div>
+    <div id="examList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px"></div>
+    <!-- Quiz modal -->
+    <div id="quizModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:24px">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;max-width:620px;width:100%;position:relative">
+        <button onclick="closeQuiz()" style="position:absolute;top:16px;right:16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;color:var(--text-secondary);padding:6px 12px;cursor:pointer">✕ Close</button>
+        <div id="quizContent"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+// ── Load user ──
+const user=JSON.parse(localStorage.getItem('np_user')||'{}');
+if(!user.email){window.location.href='login.html';}
+
+// ── Populate UI ──
+const ranks=[
+  {min:0,name:'Network Apprentice',emoji:'🌱',next:500},
+  {min:500,name:'Protocol Learner',emoji:'📡',next:1000},
+  {min:1000,name:'Subnet Explorer',emoji:'🔍',next:2000},
+  {min:2000,name:'Packet Analyst',emoji:'🔌',next:3500},
+  {min:3500,name:'Network Specialist',emoji:'⚡',next:5500},
+  {min:5500,name:'Security Analyst',emoji:'🛡️',next:8000},
+  {min:8000,name:'Cyber Expert',emoji:'🔐',next:12000},
+  {min:12000,name:'Threat Hunter',emoji:'🎯',next:18000},
+  {min:18000,name:'Cyber Legend',emoji:'👑',next:30000},
+];
+function getRank(xp){return ranks.slice().reverse().find(r=>xp>=r.min)||ranks[0];}
+
+function initDash(){
+  const xp=user.xp||100;
+  const streak=user.streak||1;
+  const modules=user.modules||Math.floor(xp/50);
+  const achCount=user.achCount||1;
+  const rank=getRank(xp);
+
+  document.getElementById('dashName').textContent=(user.first||user.name||'Learner');
+  document.getElementById('dashSub').textContent=`${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} · ${rank.name}`;
+  document.getElementById('dashStreak').textContent=streak;
+  document.getElementById('dashXP').textContent=xp.toLocaleString();
+  document.getElementById('dashXP2').textContent=xp.toLocaleString();
+  document.getElementById('dashLevel').textContent=rank===ranks[ranks.length-1]?'MAX':ranks.indexOf(rank)+1;
+  document.getElementById('dashRankName').textContent=rank.name;
+  document.getElementById('dashNextXP').textContent=rank.next.toLocaleString();
+  document.getElementById('dashBadgeEmoji').textContent=rank.emoji;
+  document.getElementById('sc-xp').textContent=xp.toLocaleString();
+  document.getElementById('sc-streak').textContent=streak;
+  document.getElementById('sc-modules').textContent=modules;
+  document.getElementById('sc-ach').textContent=achCount;
+
+  const pct=Math.min(100,Math.round(((xp-rank.min)/(rank.next-rank.min))*100));
+  setTimeout(()=>{document.getElementById('dashXPBar').style.width=pct+'%';},300);
+
+  // Activity chart
+  const days=[40,65,30,80,55,90,70].map(v=>Math.round(v*Math.random()*0.4+v*0.6));
+  const maxD=Math.max(...days);
+  document.getElementById('activityChart').innerHTML=days.map((v,i)=>{
+    const h=Math.round((v/maxD)*90);
+    const isToday=i===6;
+    return `<div style="flex:1;background:${isToday?'var(--accent)':'var(--border-hover)'};height:${h}px;border-radius:4px 4px 0 0;opacity:${isToday?1:.7};transition:height .5s ${i*80}ms ease" title="${v} XP earned"></div>`;
+  }).join('');
+
+  // Achievements
+  const allAch=[
+    {icon:'🎉',name:'First Steps',desc:'Created your account',unlocked:true},
+    {icon:'🔧',name:'Tool Master',desc:'Used a network tool',unlocked:xp>150},
+    {icon:'📚',name:'First Lesson',desc:'Completed a module',unlocked:modules>0},
+    {icon:'🔥',name:'On Fire',desc:'7-day streak',unlocked:streak>=7},
+    {icon:'⚡',name:'XP Hunter',desc:'Earned 500 XP',unlocked:xp>=500},
+    {icon:'🎯',name:'Quiz Whiz',desc:'Passed your first quiz',unlocked:xp>300},
+    {icon:'🌐',name:'IP Detective',desc:'Used IP Info tool',unlocked:xp>200},
+    {icon:'🔍',name:'DNS Guru',desc:'Ran a DNS lookup',unlocked:xp>400},
+    {icon:'🏆',name:'Top 10',desc:'Reached weekly top 10',unlocked:false},
+    {icon:'🔐',name:'Pro Unlocked',desc:'Upgraded to Pro plan',unlocked:user.plan==='pro'},
+    {icon:'💀',name:'CTF Winner',desc:'Won a challenge',unlocked:false},
+    {icon:'👑',name:'Cyber Legend',desc:'Reached max rank',unlocked:xp>=18000},
+  ];
+
+  // Recent (unlocked only)
+  const unlocked=allAch.filter(a=>a.unlocked);
+  document.getElementById('achGrid').innerHTML=unlocked.slice(0,8).map(a=>`
+    <div style="display:flex;align-items:center;gap:12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:12px">
+      <span style="font-size:1.5rem">${a.icon}</span>
+      <div><div style="font-family:var(--font-display);font-size:.88rem;font-weight:700;color:var(--text-primary)">${a.name}</div><div style="font-size:.75rem;color:var(--text-muted)">${a.desc}</div></div>
+    </div>`).join('');
+
+  // All achievements page
+  document.getElementById('allAchievements').innerHTML=allAch.map(a=>`
+    <div style="background:var(--bg-card);border:1px solid ${a.unlocked?'var(--border-hover)':'var(--border)'};border-radius:var(--radius-lg);padding:20px;text-align:center;opacity:${a.unlocked?1:.5}">
+      <div style="font-size:2.5rem;margin-bottom:10px;${a.unlocked?'':'filter:grayscale(1)'}">${a.icon}</div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:.92rem;color:var(--text-primary);margin-bottom:6px">${a.name}</div>
+      <div style="font-size:.78rem;color:var(--text-muted)">${a.desc}</div>
+      <div style="margin-top:10px;font-size:.68rem;font-family:'Space Mono',monospace;color:${a.unlocked?'var(--green)':'var(--text-muted)'}">${a.unlocked?'✓ UNLOCKED':'LOCKED'}</div>
+    </div>`).join('');
+
+  // Daily tasks
+  const tasks=[
+    {t:'Complete one learning module',xp:50,done:modules>0},
+    {t:'Use a network tool',xp:20,done:xp>150},
+    {t:'Take a quiz or challenge',xp:80,done:xp>300},
+  ];
+  let doneCount=tasks.filter(t=>t.done).length;
+  document.getElementById('taskProgress').textContent=`${doneCount}/3 complete`;
+  document.getElementById('taskList').innerHTML=tasks.map((t,i)=>`
+    <div style="display:flex;align-items:center;gap:14px;background:var(--bg-secondary);border:1px solid ${t.done?'rgba(0,229,160,.2)':'var(--border)'};border-radius:10px;padding:14px 18px">
+      <div style="width:24px;height:24px;border-radius:50%;background:${t.done?'var(--green)':'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0">${t.done?'✓':i+1}</div>
+      <div style="flex:1;font-size:.88rem;color:${t.done?'var(--text-muted)':'var(--text-primary)'};${t.done?'text-decoration:line-through':''}">${t.t}</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.75rem;color:var(--accent)">+${t.xp} XP</div>
+    </div>`).join('');
+
+  // Leaderboard
+  const lb=[
+    {name:'cipher_wolf',xp:12480,rank:1,badge:'👑'},
+    {name:'netshark99',xp:10220,rank:2,badge:'🥈'},
+    {name:'packet_queen',xp:9875,rank:3,badge:'🥉'},
+    {name:'alex_sec',xp:8340,rank:4,badge:''},
+    {name:(user.first||'You'),xp:xp,rank:5,badge:'📍'},
+    {name:'byte_bandit',xp:6120,rank:6,badge:''},
+    {name:'netsec_ninja',xp:5890,rank:7,badge:''},
+    {name:'layer7_pro',xp:5230,rank:8,badge:''},
+  ].sort((a,b)=>b.xp-a.xp).map((u,i)=>({...u,rank:i+1}));
+
+  document.getElementById('leaderboardList').innerHTML=lb.map(u=>`
+    <div style="display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);${u.name===(user.first||'You')?'background:var(--accent-dim);border-radius:8px;padding:14px 12px;margin:4px 0':''}">
+      <div style="font-family:'Space Mono',monospace;font-size:1rem;font-weight:700;color:${u.rank<=3?'var(--accent)':'var(--text-muted)'};width:32px">#${u.rank}</div>
+      <div style="width:36px;height:36px;background:var(--bg-secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem">${u.badge||'🧑'}</div>
+      <div style="flex:1;font-family:var(--font-display);font-size:.92rem;font-weight:600;color:var(--text-primary)">${u.name}</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.85rem;color:var(--accent)">⚡ ${u.xp.toLocaleString()}</div>
+    </div>`).join('');
+
+  // Exams
+  const exams=[
+    {name:'Networking Basics Quiz',time:15,q:20,diff:'beginner',xp:200},
+    {name:'Subnetting Speed Test',time:10,q:15,diff:'intermediate',xp:300},
+    {name:'Security+ Practice',time:30,q:40,diff:'intermediate',xp:500},
+    {name:'CEH Prep Exam',time:45,q:50,diff:'advanced',xp:1000,pro:true},
+    {name:'CCNA Mock Exam',time:60,q:60,diff:'advanced',xp:1500,pro:true},
+    {name:'Port & Protocol Blitz',time:5,q:25,diff:'beginner',xp:150},
+  ];
+  document.getElementById('examList').innerHTML=exams.map((e,i)=>`
+    <div style="background:var(--bg-card);border:1px solid ${e.pro?'rgba(124,58,237,.2)':'var(--border)'};border-radius:var(--radius-lg);padding:24px;position:relative">
+      ${e.pro?'<div style="position:absolute;top:14px;right:14px;font-family:\'Space Mono\',monospace;font-size:.65rem;color:#a78bfa;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);padding:3px 8px;border-radius:4px">PRO</div>':''}
+      <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:8px">${e.name}</div>
+      <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+        <span style="font-size:.75rem;font-family:'Space Mono',monospace;color:var(--text-muted)">⏱ ${e.time} min</span>
+        <span style="font-size:.75rem;font-family:'Space Mono',monospace;color:var(--text-muted)">❓ ${e.q} questions</span>
+        <span style="font-size:.75rem;font-family:'Space Mono',monospace;color:var(--accent)">+${e.xp} XP</span>
+      </div>
+      <button onclick="${e.pro&&user.plan!=='pro'?'window.location=\'pricing.html\'':'startExam('+i+')'}" class="btn-primary" style="width:100%;padding:10px;font-size:.88rem">
+        ${e.pro&&user.plan!=='pro'?'🔒 Unlock Pro':'Start Exam →'}
+      </button>
+    </div>`).join('');
+
+  window._exams=exams;
+}
+
+const examQuestions={
+  0:[
+    {q:'What does OSI stand for?',opts:['Open System Interconnection','Operating System Interface','Open Source Integration','Online Security Index'],a:0},
+    {q:'Which OSI layer handles IP addressing?',opts:['Layer 1','Layer 2','Layer 3','Layer 4'],a:2},
+    {q:'What is the default subnet mask for a Class C network?',opts:['255.0.0.0','255.255.0.0','255.255.255.0','255.255.255.255'],a:2},
+    {q:'Which protocol operates on port 80?',opts:['FTP','HTTP','HTTPS','SSH'],a:1},
+    {q:'What does DHCP stand for?',opts:['Dynamic Host Configuration Protocol','Direct Host Control Protocol','Dynamic HTTP Client Protocol','Data Host Connection Protocol'],a:0},
+  ],
+  5:[
+    {q:'Which port does SSH use?',opts:['21','22','23','25'],a:1},
+    {q:'What port does HTTPS use?',opts:['80','443','8080','8443'],a:1},
+    {q:'Which port is used by DNS?',opts:['25','53','110','143'],a:1},
+    {q:'What is the well-known port range?',opts:['0–1023','1024–49151','49152–65535','0–65535'],a:0},
+    {q:'Which port does RDP use?',opts:['3306','3389','5432','5900'],a:1},
+  ],
+};
+
+let quizState={};
+function startExam(idx){
+  const exam=window._exams[idx];
+  const qs=examQuestions[idx]||examQuestions[0];
+  quizState={exam,qs,current:0,score:0,answers:[],startTime:Date.now(),timeLeft:exam.time*60};
+  document.getElementById('quizModal').style.display='flex';
+  renderQuestion();
+  quizState.timer=setInterval(()=>{
+    quizState.timeLeft--;
+    const el=document.getElementById('quizTimer');
+    if(el){const m=Math.floor(quizState.timeLeft/60),s=quizState.timeLeft%60;el.textContent=`${m}:${s.toString().padStart(2,'0')}`;}
+    if(quizState.timeLeft<=0){clearInterval(quizState.timer);finishExam();}
+  },1000);
+}
+function renderQuestion(){
+  const {qs,current,exam,timeLeft}=quizState;
+  const q=qs[current];
+  const m=Math.floor(timeLeft/60),s=timeLeft%60;
+  document.getElementById('quizContent').innerHTML=`
+    <div style="display:flex;justify-content:space-between;margin-bottom:20px;font-family:'Space Mono',monospace;font-size:.8rem;color:var(--text-muted)">
+      <span>${exam.name}</span>
+      <span id="quizTimer" style="color:${timeLeft<60?'var(--red)':'var(--accent)'}">${m}:${s.toString().padStart(2,'0')}</span>
+    </div>
+    <div style="background:var(--border);height:4px;border-radius:2px;margin-bottom:24px;overflow:hidden">
+      <div style="background:var(--accent);height:100%;width:${((current+1)/qs.length)*100}%;transition:.3s"></div>
+    </div>
+    <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:8px;font-family:'Space Mono',monospace">Question ${current+1} of ${qs.length}</div>
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;color:var(--text-primary);margin-bottom:20px;line-height:1.4">${q.q}</h3>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${q.opts.map((o,i)=>`<button onclick="answerQ(${i})" style="text-align:left;padding:14px 18px;background:var(--bg-secondary);border:1.5px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:.9rem;cursor:pointer;transition:.2s;font-family:var(--font-body)" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+    </div>`;
+}
+function answerQ(i){
+  const {qs,current}=quizState;
+  const correct=qs[current].a===i;
+  if(correct)quizState.score++;
+  quizState.answers.push({q:qs[current].q,correct,chosen:i,right:qs[current].a});
+  quizState.current++;
+  if(quizState.current>=qs.length)finishExam();
+  else renderQuestion();
+}
+function finishExam(){
+  clearInterval(quizState.timer);
+  const {score,qs,exam,answers}=quizState;
+  const pct=Math.round((score/qs.length)*100);
+  const passed=pct>=70;
+  const xpEarned=passed?Math.round(exam.xp*(pct/100)):50;
+
+  // Save XP
+  user.xp=(user.xp||0)+xpEarned;
+  localStorage.setItem('np_user',JSON.stringify(user));
+
+  document.getElementById('quizContent').innerHTML=`
+    <div style="text-align:center;padding:20px 0">
+      <div style="font-size:4rem;margin-bottom:16px">${pct>=90?'🏆':pct>=70?'🎯':'📚'}</div>
+      <h2 style="font-family:var(--font-display);font-size:1.6rem;color:${passed?'var(--green)':'var(--orange)'};margin-bottom:8px">${passed?'Passed!':'Keep Practicing!'}</h2>
+      <div style="font-size:3rem;font-weight:700;font-family:'Space Mono',monospace;color:var(--text-primary);margin:16px 0">${pct}%</div>
+      <div style="color:var(--text-muted);margin-bottom:24px">${score} / ${qs.length} correct</div>
+      <div style="background:var(--accent-dim);border:1px solid rgba(0,212,255,.2);border-radius:var(--radius);padding:12px 20px;margin-bottom:24px;font-family:'Space Mono',monospace;color:var(--accent)">
+        ⚡ +${xpEarned} XP earned!
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;text-align:left;max-height:200px;overflow-y:auto;margin-bottom:24px">
+        ${answers.map(a=>`<div style="padding:10px;background:var(--bg-secondary);border-radius:8px;font-size:.82rem;border-left:3px solid ${a.correct?'var(--green)':'var(--red)'}">
+          <span style="color:${a.correct?'var(--green)':'var(--red)'}">${a.correct?'✓':'✗'}</span> ${a.q}</div>`).join('')}
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button onclick="closeQuiz()" class="btn-outline">Close</button>
+        <button onclick="startExam(0)" class="btn-primary">Try Again →</button>
+      </div>
+    </div>`;
+}
+function closeQuiz(){
+  document.getElementById('quizModal').style.display='none';
+  clearInterval(quizState.timer||null);
+}
+
+function showSection(id){
+  document.querySelectorAll('[id^="sec-"]').forEach(el=>el.style.display='none');
+  document.getElementById('sec-'+id).style.display='block';
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+}
+
+function doLogout(){
+  localStorage.removeItem('np_user');
+  window.location.href='../index.html';
+}
+
+initDash();
+</script>
+</body>
+</html>
+HTMLEOF
+echo "dashboard.html done"
+Output
+
+dashboard.html done
+
+
