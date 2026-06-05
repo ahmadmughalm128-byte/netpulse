@@ -89,7 +89,10 @@ function doLogin(){
   localStorage.setItem('np_user',JSON.stringify(user));
   showToast('Welcome back!','success');
   setTimeout(()=>window.location.href='dashboard.html',800);
-}
+} 
+ <div style="text-align:center;font-size:.75rem;color:gray;margin-bottom:10px">
+  ⚠️ Educational demo project – no real authentication
+</div> 
 document.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 </script>
 </body>
