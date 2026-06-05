@@ -1,0 +1,587 @@
+cat > /home/claude/netpulse/pages/tools.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Network Tools — NetPulse Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/main.css"/><link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body data-theme="dark">
+
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo"><span class="logo-pulse"></span><span class="logo-text">Net<span class="accent">Pulse</span></span><span class="logo-tag">ACADEMY</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="tools.html" class="nav-link active">Tools</a>
+      <a href="learn.html" class="nav-link">Learn</a>
+      <a href="challenges.html" class="nav-link">Challenges</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+    </div>
+    <div class="nav-actions" id="navActions">
+      <button class="btn-ghost" onclick="window.location='login.html'">Sign In</button>
+      <button class="btn-primary" onclick="window.location='register.html'">Get Started</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:80px">
+<div class="container" style="padding-top:40px;padding-bottom:20px">
+  <span class="section-tag">TOOLBOX</span>
+  <h1 class="section-title" style="font-size:2.4rem">Network <span class="text-gradient">Tools</span></h1>
+  <p class="section-desc">Professional-grade tools. Free ones work instantly — no login needed.</p>
+</div>
+
+<!-- ═══ TOOL TABS ═══ -->
+<div class="container">
+<div class="tabs" role="tablist">
+  <button class="tab active" onclick="showTab('subnet')" role="tab">⚡ Subnet Calc</button>
+  <button class="tab" onclick="showTab('cidr')" role="tab">🔢 CIDR</button>
+  <button class="tab" onclick="showTab('port')" role="tab">🔌 Port Lookup</button>
+  <button class="tab" onclick="showTab('ip')" role="tab">🌐 IP Info</button>
+  <button class="tab" onclick="showTab('dns')" role="tab">🔍 DNS Lookup</button>
+  <button class="tab" onclick="showTab('mac')" role="tab">📡 MAC Lookup</button>
+  <button class="tab" onclick="showTab('ping')" role="tab">📶 Ping Sim</button>
+  <button class="tab" onclick="showTab('whois')" role="tab">🔐 WHOIS <span style="font-size:.65rem;color:#a78bfa;margin-left:4px">PRO</span></button>
+</div>
+</div>
+
+<!-- ════ SUBNET CALCULATOR ════ -->
+<div id="tool-subnet" class="tool-panel container">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">⚡</span>
+      <div><h2>Subnet Calculator</h2><p>Enter an IP address with CIDR notation or select prefix length.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="subnetInput" class="form-input" placeholder="e.g. 192.168.1.0/24 or 10.0.0.1/16" style="flex:1"/>
+      <button class="btn-primary" onclick="calcSubnet()">Calculate</button>
+    </div>
+    <div class="quick-examples">
+      <span>Quick:</span>
+      <button class="chip" onclick="fillSubnet('192.168.1.0/24')">192.168.1.0/24</button>
+      <button class="chip" onclick="fillSubnet('10.0.0.0/8')">10.0.0.0/8</button>
+      <button class="chip" onclick="fillSubnet('172.16.0.0/12')">172.16.0.0/12</button>
+      <button class="chip" onclick="fillSubnet('192.168.0.0/16')">192.168.0.0/16</button>
+    </div>
+    <div id="subnetResult" class="tool-result-box"></div>
+  </div>
+</div>
+
+<!-- ════ CIDR CONVERTER ════ -->
+<div id="tool-cidr" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">🔢</span>
+      <div><h2>CIDR Converter</h2><p>Convert subnet masks to CIDR prefix length and vice versa.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="cidrMaskInput" class="form-input" placeholder="e.g. 255.255.255.0  or  /24  or  24" style="flex:1"/>
+      <button class="btn-primary" onclick="convertCIDR()">Convert</button>
+    </div>
+    <div class="quick-examples">
+      <span>Quick:</span>
+      <button class="chip" onclick="fillCIDR('255.255.255.0')">/24</button>
+      <button class="chip" onclick="fillCIDR('255.255.0.0')">/16</button>
+      <button class="chip" onclick="fillCIDR('255.0.0.0')">/8</button>
+      <button class="chip" onclick="fillCIDR('255.255.255.128')">/25</button>
+      <button class="chip" onclick="fillCIDR('255.255.255.252')">/30</button>
+    </div>
+    <div id="cidrResult" class="tool-result-box"></div>
+  </div>
+</div>
+
+<!-- ════ PORT LOOKUP ════ -->
+<div id="tool-port" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">🔌</span>
+      <div><h2>Port Lookup</h2><p>Find service, protocol, risk level for any port number.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="portInput" class="form-input" placeholder="Enter port number (0–65535), e.g. 443" type="number" min="0" max="65535" style="flex:1"/>
+      <button class="btn-primary" onclick="lookupPort()">Lookup</button>
+    </div>
+    <div class="quick-examples">
+      <span>Common:</span>
+      <button class="chip" onclick="fillPort(80)">80</button>
+      <button class="chip" onclick="fillPort(443)">443</button>
+      <button class="chip" onclick="fillPort(22)">22</button>
+      <button class="chip" onclick="fillPort(3389)">3389</button>
+      <button class="chip" onclick="fillPort(3306)">3306</button>
+      <button class="chip" onclick="fillPort(25)">25</button>
+    </div>
+    <div id="portResult" class="tool-result-box"></div>
+  </div>
+</div>
+
+<!-- ════ IP INFO ════ -->
+<div id="tool-ip" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">🌐</span>
+      <div><h2>IP Info Tool</h2><p>Geolocation, ISP, ASN, and classification for any IP address.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="ipInput" class="form-input" placeholder="Enter IPv4 address, e.g. 8.8.8.8" style="flex:1"/>
+      <button class="btn-primary" onclick="lookupIP()">Lookup</button>
+      <button class="btn-outline" onclick="myIP()">My IP</button>
+    </div>
+    <div class="quick-examples">
+      <span>Try:</span>
+      <button class="chip" onclick="fillIP('8.8.8.8')">8.8.8.8</button>
+      <button class="chip" onclick="fillIP('1.1.1.1')">1.1.1.1</button>
+      <button class="chip" onclick="fillIP('208.67.222.222')">208.67.222.222</button>
+    </div>
+    <div id="ipResult" class="tool-result-box"></div>
+  </div>
+</div>
+
+<!-- ════ DNS LOOKUP ════ -->
+<div id="tool-dns" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">🔍</span>
+      <div><h2>DNS Lookup</h2><p>Query DNS records for any domain. Uses Google DNS resolver.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="dnsInput" class="form-input" placeholder="Enter domain, e.g. google.com" style="flex:1"/>
+      <select id="dnsType" class="form-input" style="max-width:120px">
+        <option>A</option><option>AAAA</option><option>MX</option>
+        <option>NS</option><option>TXT</option><option>CNAME</option>
+        <option>SOA</option>
+      </select>
+      <button class="btn-primary" onclick="lookupDNS()">Lookup</button>
+    </div>
+    <div class="quick-examples">
+      <span>Try:</span>
+      <button class="chip" onclick="fillDNS('google.com')">google.com</button>
+      <button class="chip" onclick="fillDNS('cloudflare.com')">cloudflare.com</button>
+      <button class="chip" onclick="fillDNS('github.com')">github.com</button>
+    </div>
+    <div id="dnsResult" class="tool-result-box"></div>
+  </div>
+</div>
+
+<!-- ════ MAC LOOKUP ════ -->
+<div id="tool-mac" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">📡</span>
+      <div><h2>MAC Address Lookup</h2><p>Identify vendor from MAC OUI prefix. Validates format.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="macInput" class="form-input" placeholder="e.g. 00:1A:2B:3C:4D:5E or 001A2B3C4D5E" style="flex:1"/>
+      <button class="btn-primary" onclick="lookupMAC()">Lookup</button>
+    </div>
+    <div class="quick-examples">
+      <span>Try:</span>
+      <button class="chip" onclick="fillMAC('00:1A:2B:3C:4D:5E')">Apple-like</button>
+      <button class="chip" onclick="fillMAC('FC:FB:FB:01:23:45')">Cisco-like</button>
+      <button class="chip" onclick="fillMAC('00:50:56:AB:CD:EF')">VMware</button>
+    </div>
+    <div id="macResult" class="tool-result-box"></div>
+  </div>
+</div>
+
+<!-- ════ PING SIMULATOR ════ -->
+<div id="tool-ping" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">📶</span>
+      <div><h2>Ping Simulator</h2><p>Simulate ICMP ping with visual latency chart and packet stats.</p></div>
+      <span class="tool-badge free-badge" style="position:static;align-self:flex-start">FREE</span>
+    </div>
+    <div class="tool-input-row">
+      <input id="pingInput" class="form-input" placeholder="Enter host or IP, e.g. google.com or 8.8.8.8" style="flex:1"/>
+      <select id="pingCount" class="form-input" style="max-width:100px">
+        <option value="5">5 pings</option><option value="10" selected>10 pings</option><option value="20">20 pings</option>
+      </select>
+      <button class="btn-primary" id="pingBtn" onclick="runPing()">Ping</button>
+    </div>
+    <div class="quick-examples">
+      <span>Try:</span>
+      <button class="chip" onclick="fillPing('8.8.8.8')">8.8.8.8</button>
+      <button class="chip" onclick="fillPing('1.1.1.1')">1.1.1.1</button>
+      <button class="chip" onclick="fillPing('google.com')">google.com</button>
+    </div>
+    <div id="pingResult" class="tool-result-box">
+      <div id="pingStats" style="margin-bottom:12px;display:none">
+        <div class="result-row"><span class="result-key">Host</span><span class="result-val accent" id="pingHost">—</span></div>
+        <div class="result-row"><span class="result-key">Sent</span><span class="result-val" id="pingSent">—</span></div>
+        <div class="result-row"><span class="result-key">Received</span><span class="result-val green" id="pingRecv">—</span></div>
+        <div class="result-row"><span class="result-key">Lost</span><span class="result-val" id="pingLost">—</span></div>
+        <div class="result-row"><span class="result-key">Min / Avg / Max</span><span class="result-val" id="pingMMA">—</span></div>
+      </div>
+      <div id="pingLog" style="font-family:'Space Mono',monospace;font-size:.78rem;color:#8ba3c0;max-height:160px;overflow-y:auto"></div>
+      <div class="ping-chart" id="pingChart"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WHOIS (PRO) ════ -->
+<div id="tool-whois" class="tool-panel container" style="display:none">
+  <div class="tool-card-full">
+    <div class="tool-card-header">
+      <span style="font-size:2rem">🔐</span>
+      <div><h2>WHOIS Lookup</h2><p>Full WHOIS data, domain history, registrar info.</p></div>
+      <span class="tool-badge premium-badge" style="position:static;align-self:flex-start">PRO</span>
+    </div>
+    <div class="pro-gate">
+      <div class="pro-gate-icon">🔒</div>
+      <h3>Premium Feature</h3>
+      <p>WHOIS Lookup is available on the Pro plan. Upgrade to access full WHOIS data, domain history, registrar details, and expiry tracking.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+        <a href="pricing.html" class="btn-primary">Upgrade to Pro →</a>
+        <a href="register.html" class="btn-outline">Create Free Account</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end padding-top wrapper -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid var(--border);padding-top:32px">
+      <p>© 2025 NetPulse Academy</p>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.tool-panel{padding-bottom:60px}
+.tool-card-full{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px}
+.tool-card-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.tool-card-header h2{font-family:var(--font-display);font-size:1.4rem;color:var(--text-primary);margin-bottom:4px}
+.tool-card-header p{color:var(--text-muted);font-size:.88rem}
+.tool-input-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.quick-examples{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:.82rem;color:var(--text-muted);font-family:'Space Mono',monospace}
+.chip{background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-secondary);font-family:'Space Mono',monospace;font-size:.75rem;padding:4px 10px;border-radius:6px;cursor:pointer;transition:var(--transition)}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.pro-gate{text-align:center;padding:48px 24px}
+.pro-gate-icon{font-size:3rem;margin-bottom:16px}
+.pro-gate h3{font-family:var(--font-display);font-size:1.4rem;color:var(--text-primary);margin-bottom:12px}
+.pro-gate p{color:var(--text-muted);max-width:480px;margin:0 auto;line-height:1.7}
+</style>
+
+<script src="../js/main.js"></script>
+<script>
+/* ── Tab switching ── */
+function showTab(id){
+  document.querySelectorAll('.tool-panel').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tool-'+id).style.display='block';
+  event.target.classList.add('active');
+  // update URL hash without scrolling
+  history.replaceState(null,'','#'+id);
+}
+
+// Check URL hash on load
+(function(){
+  const hash=location.hash.replace('#','');
+  const valid=['subnet','cidr','port','ip','dns','mac','ping','whois'];
+  if(hash && valid.includes(hash)){
+    const btn=[...document.querySelectorAll('.tab')].find(t=>t.getAttribute('onclick').includes("'"+hash+"'"));
+    if(btn) showTab.call({},hash);
+    else{document.querySelector('.tab').classList.add('active');}
+  }
+})();
+
+/* ═══ SUBNET CALCULATOR ═══ */
+function fillSubnet(v){document.getElementById('subnetInput').value=v;}
+function calcSubnet(){
+  const raw=document.getElementById('subnetInput').value.trim();
+  const box=document.getElementById('subnetResult');
+  if(!raw){box.innerHTML='<p style="color:var(--red)">Please enter an IP/CIDR like 192.168.1.0/24</p>';box.classList.add('visible');return;}
+  const parts=raw.split('/');
+  if(parts.length!==2){box.innerHTML='<p style="color:var(--red)">Format must be IP/prefix, e.g. 192.168.1.0/24</p>';box.classList.add('visible');return;}
+  const ip=parts[0].trim();
+  const prefix=parseInt(parts[1],10);
+  if(isNaN(prefix)||prefix<0||prefix>32){box.innerHTML='<p style="color:var(--red)">Prefix must be 0–32</p>';box.classList.add('visible');return;}
+  const ipParts=ip.split('.').map(Number);
+  if(ipParts.length!==4||ipParts.some(p=>isNaN(p)||p<0||p>255)){box.innerHTML='<p style="color:var(--red)">Invalid IP address</p>';box.classList.add('visible');return;}
+
+  const mask=(prefix===0)?0:(-1<<(32-prefix))>>>0;
+  const ipInt=((ipParts[0]<<24)|(ipParts[1]<<16)|(ipParts[2]<<8)|ipParts[3])>>>0;
+  const network=(ipInt&mask)>>>0;
+  const broadcast=(network|(~mask>>>0))>>>0;
+  const hosts=prefix>=31?Math.max(0,(1<<(32-prefix))-2):Math.pow(2,32-prefix)-2;
+  const wildcard=(~mask>>>0);
+
+  function toIP(n){return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.');}
+  function toMask(m){return [(m>>>24)&255,(m>>>16)&255,(m>>>8)&255,m&255].join('.');}
+
+  const cls=prefix<=8?'A':prefix<=16?'B':prefix<=24?'C':'Classless';
+  const isPriv=(ipParts[0]===10)||(ipParts[0]===172&&ipParts[1]>=16&&ipParts[1]<=31)||(ipParts[0]===192&&ipParts[1]===168);
+
+  box.innerHTML=`
+    <div class="result-row"><span class="result-key">Network Address</span><span class="result-val accent">${toIP(network)}</span></div>
+    <div class="result-row"><span class="result-key">Subnet Mask</span><span class="result-val">${toMask(mask)}</span></div>
+    <div class="result-row"><span class="result-key">Wildcard Mask</span><span class="result-val">${toMask(wildcard)}</span></div>
+    <div class="result-row"><span class="result-key">Broadcast Address</span><span class="result-val">${toIP(broadcast)}</span></div>
+    <div class="result-row"><span class="result-key">First Usable Host</span><span class="result-val green">${prefix<31?toIP(network+1):toIP(network)}</span></div>
+    <div class="result-row"><span class="result-key">Last Usable Host</span><span class="result-val green">${prefix<31?toIP(broadcast-1):toIP(broadcast)}</span></div>
+    <div class="result-row"><span class="result-key">Usable Hosts</span><span class="result-val">${hosts.toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-key">CIDR Notation</span><span class="result-val">/${prefix}</span></div>
+    <div class="result-row"><span class="result-key">Total Addresses</span><span class="result-val">${Math.pow(2,32-prefix).toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-key">IP Class</span><span class="result-val">${cls}</span></div>
+    <div class="result-row"><span class="result-key">Address Type</span><span class="result-val ${isPriv?'green':'orange'}">${isPriv?'Private (RFC 1918)':'Public'}</span></div>
+    <div class="result-row"><span class="result-key">IP Range</span><span class="result-val">${toIP(network)} — ${toIP(broadcast)}</span></div>`;
+  box.classList.add('visible');
+  showToast('Subnet calculated!','success');
+}
+
+/* ═══ CIDR CONVERTER ═══ */
+function fillCIDR(v){document.getElementById('cidrMaskInput').value=v;}
+function convertCIDR(){
+  let val=document.getElementById('cidrMaskInput').value.trim().replace('/','');
+  const box=document.getElementById('cidrResult');
+  const masks=['0.0.0.0','128.0.0.0','192.0.0.0','224.0.0.0','240.0.0.0','248.0.0.0','252.0.0.0','254.0.0.0','255.0.0.0','255.128.0.0','255.192.0.0','255.224.0.0','255.240.0.0','255.248.0.0','255.252.0.0','255.254.0.0','255.255.0.0','255.255.128.0','255.255.192.0','255.255.224.0','255.255.240.0','255.255.248.0','255.255.252.0','255.255.254.0','255.255.255.0','255.255.255.128','255.255.255.192','255.255.255.224','255.255.255.240','255.255.255.248','255.255.255.252','255.255.255.254','255.255.255.255'];
+  let prefix,mask;
+  if(/^\d+$/.test(val)){
+    prefix=parseInt(val,10);
+    if(prefix<0||prefix>32){box.innerHTML='<p style="color:var(--red)">Prefix must be 0–32</p>';box.classList.add('visible');return;}
+    mask=masks[prefix];
+  } else if(val.includes('.')){
+    const idx=masks.indexOf(val);
+    if(idx===-1){box.innerHTML='<p style="color:var(--red)">Invalid subnet mask</p>';box.classList.add('visible');return;}
+    prefix=idx; mask=val;
+  } else {box.innerHTML='<p style="color:var(--red)">Enter a mask like 255.255.255.0 or a prefix like 24</p>';box.classList.add('visible');return;}
+
+  const hosts=prefix>=32?1:prefix===31?2:Math.pow(2,32-prefix)-2;
+  const mBin=mask.split('.').map(o=>parseInt(o,10).toString(2).padStart(8,'0')).join('.');
+  box.innerHTML=`
+    <div class="result-row"><span class="result-key">CIDR Prefix</span><span class="result-val accent">/${prefix}</span></div>
+    <div class="result-row"><span class="result-key">Subnet Mask</span><span class="result-val">${mask}</span></div>
+    <div class="result-row"><span class="result-key">Binary Mask</span><span class="result-val" style="font-size:.75rem;word-break:break-all">${mBin}</span></div>
+    <div class="result-row"><span class="result-key">Usable Hosts</span><span class="result-val green">${hosts.toLocaleString()}</span></div>
+    <div class="result-row"><span class="result-key">Total Addresses</span><span class="result-val">${Math.pow(2,32-prefix).toLocaleString()}</span></div>`;
+  box.classList.add('visible');
+  showToast('CIDR converted!','success');
+}
+
+/* ═══ PORT LOOKUP ═══ */
+function fillPort(v){document.getElementById('portInput').value=v;lookupPort();}
+const portDB={
+  20:{name:'FTP Data',proto:'TCP',risk:'medium',desc:'FTP data transfer channel'},
+  21:{name:'FTP Control',proto:'TCP',risk:'high',desc:'FTP command channel — use SFTP instead'},
+  22:{name:'SSH',proto:'TCP',risk:'low',desc:'Secure Shell — encrypted remote admin'},
+  23:{name:'Telnet',proto:'TCP',risk:'critical',desc:'INSECURE — plaintext remote access, block this'},
+  25:{name:'SMTP',proto:'TCP',risk:'medium',desc:'Email sending — often abused for spam'},
+  53:{name:'DNS',proto:'TCP/UDP',risk:'low',desc:'Domain Name System resolution'},
+  67:{name:'DHCP Server',proto:'UDP',risk:'low',desc:'Dynamic host configuration'},
+  68:{name:'DHCP Client',proto:'UDP',risk:'low',desc:'Dynamic host configuration client'},
+  80:{name:'HTTP',proto:'TCP',risk:'medium',desc:'Unencrypted web traffic — prefer HTTPS'},
+  110:{name:'POP3',proto:'TCP',risk:'medium',desc:'Email retrieval — older protocol'},
+  123:{name:'NTP',proto:'UDP',risk:'low',desc:'Network Time Protocol'},
+  143:{name:'IMAP',proto:'TCP',risk:'medium',desc:'Internet Mail Access Protocol'},
+  161:{name:'SNMP',proto:'UDP',risk:'high',desc:'Network monitoring — v1/v2 are insecure'},
+  389:{name:'LDAP',proto:'TCP',risk:'medium',desc:'Directory services'},
+  443:{name:'HTTPS',proto:'TCP',risk:'low',desc:'Encrypted web traffic — TLS/SSL'},
+  445:{name:'SMB',proto:'TCP',risk:'critical',desc:'Windows file sharing — target of ransomware attacks'},
+  465:{name:'SMTPS',proto:'TCP',risk:'low',desc:'Encrypted SMTP over SSL'},
+  514:{name:'Syslog',proto:'UDP',risk:'medium',desc:'System logging protocol'},
+  587:{name:'SMTP Submission',proto:'TCP',risk:'low',desc:'Authenticated mail submission'},
+  636:{name:'LDAPS',proto:'TCP',risk:'low',desc:'Encrypted LDAP'},
+  993:{name:'IMAPS',proto:'TCP',risk:'low',desc:'Encrypted IMAP'},
+  995:{name:'POP3S',proto:'TCP',risk:'low',desc:'Encrypted POP3'},
+  1080:{name:'SOCKS Proxy',proto:'TCP',risk:'high',desc:'Proxy protocol — often misused'},
+  1194:{name:'OpenVPN',proto:'TCP/UDP',risk:'low',desc:'Open-source VPN'},
+  1433:{name:'MSSQL',proto:'TCP',risk:'high',desc:'Microsoft SQL Server — never expose publicly'},
+  1521:{name:'Oracle DB',proto:'TCP',risk:'high',desc:'Oracle database — never expose publicly'},
+  3306:{name:'MySQL',proto:'TCP',risk:'high',desc:'MySQL database — never expose publicly'},
+  3389:{name:'RDP',proto:'TCP',risk:'critical',desc:'Remote Desktop — primary target for brute-force attacks'},
+  5432:{name:'PostgreSQL',proto:'TCP',risk:'high',desc:'PostgreSQL database'},
+  5900:{name:'VNC',proto:'TCP',risk:'critical',desc:'Virtual Network Computing — often unencrypted'},
+  6379:{name:'Redis',proto:'TCP',risk:'critical',desc:'In-memory database — commonly misconfigured'},
+  8080:{name:'HTTP Alt',proto:'TCP',risk:'medium',desc:'Alternative HTTP port'},
+  8443:{name:'HTTPS Alt',proto:'TCP',risk:'low',desc:'Alternative HTTPS port'},
+  27017:{name:'MongoDB',proto:'TCP',risk:'critical',desc:'MongoDB — frequently exposed to internet without auth'},
+};
+const riskColors={low:'green',medium:'orange',high:'red',critical:'red'};
+const riskLabels={low:'✅ Low Risk',medium:'⚠️ Medium Risk',high:'🔴 High Risk',critical:'🚨 CRITICAL'};
+function lookupPort(){
+  const port=parseInt(document.getElementById('portInput').value,10);
+  const box=document.getElementById('portResult');
+  if(isNaN(port)||port<0||port>65535){box.innerHTML='<p style="color:var(--red)">Enter a valid port number (0–65535)</p>';box.classList.add('visible');return;}
+  const info=portDB[port];
+  if(info){
+    box.innerHTML=`
+      <div class="result-row"><span class="result-key">Port</span><span class="result-val accent">${port}</span></div>
+      <div class="result-row"><span class="result-key">Service</span><span class="result-val">${info.name}</span></div>
+      <div class="result-row"><span class="result-key">Protocol</span><span class="result-val">${info.proto}</span></div>
+      <div class="result-row"><span class="result-key">Risk Level</span><span class="result-val ${riskColors[info.risk]}">${riskLabels[info.risk]}</span></div>
+      <div class="result-row"><span class="result-key">Description</span><span class="result-val" style="font-size:.82rem;max-width:320px;text-align:right">${info.desc}</span></div>
+      <div class="result-row"><span class="result-key">Range Category</span><span class="result-val">${port<1024?'Well-Known (System)':port<49152?'Registered':'Dynamic/Private'}</span></div>`;
+  } else {
+    box.innerHTML=`
+      <div class="result-row"><span class="result-key">Port</span><span class="result-val accent">${port}</span></div>
+      <div class="result-row"><span class="result-key">Service</span><span class="result-val orange">Unknown / Unofficial</span></div>
+      <div class="result-row"><span class="result-key">Range</span><span class="result-val">${port<1024?'Well-Known':port<49152?'Registered':'Dynamic/Private'}</span></div>
+      <div class="result-row"><span class="result-key">Note</span><span class="result-val" style="font-size:.82rem">Not a standard IANA assigned port. Could be custom application traffic.</span></div>`;
+  }
+  box.classList.add('visible');
+}
+
+/* ═══ IP INFO ═══ */
+function fillIP(v){document.getElementById('ipInput').value=v;}
+function myIP(){document.getElementById('ipInput').value='';lookupIP(true);}
+async function lookupIP(useMyIP=false){
+  const box=document.getElementById('ipResult');
+  box.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted)">⏳ Looking up IP...</div>';
+  box.classList.add('visible');
+  let ip=document.getElementById('ipInput').value.trim();
+  try{
+    const endpoint=useMyIP||!ip?'https://ipapi.co/json/':'https://ipapi.co/'+ip+'/json/';
+    const res=await fetch(endpoint);
+    const d=await res.json();
+    if(d.error){box.innerHTML=`<p style="color:var(--red)">Error: ${d.reason||'Invalid IP'}</p>`;return;}
+    box.innerHTML=`
+      <div class="result-row"><span class="result-key">IP Address</span><span class="result-val accent">${d.ip}</span></div>
+      <div class="result-row"><span class="result-key">Hostname</span><span class="result-val">${d.hostname||'—'}</span></div>
+      <div class="result-row"><span class="result-key">City</span><span class="result-val">${d.city||'—'}</span></div>
+      <div class="result-row"><span class="result-key">Region</span><span class="result-val">${d.region||'—'}</span></div>
+      <div class="result-row"><span class="result-key">Country</span><span class="result-val">${d.country_name||'—'} ${d.country||''}</span></div>
+      <div class="result-row"><span class="result-key">Postal</span><span class="result-val">${d.postal||'—'}</span></div>
+      <div class="result-row"><span class="result-key">Latitude / Longitude</span><span class="result-val">${d.latitude||'—'} / ${d.longitude||'—'}</span></div>
+      <div class="result-row"><span class="result-key">Timezone</span><span class="result-val">${d.timezone||'—'}</span></div>
+      <div class="result-row"><span class="result-key">ISP</span><span class="result-val">${d.org||'—'}</span></div>
+      <div class="result-row"><span class="result-key">ASN</span><span class="result-val green">${d.asn||'—'}</span></div>
+      <div class="result-row"><span class="result-key">Currency</span><span class="result-val">${d.currency_name||'—'} (${d.currency||'—'})</span></div>`;
+    showToast('IP info loaded!','success');
+  }catch(e){
+    box.innerHTML='<p style="color:var(--red)">Network error — check your connection or try a different IP.</p>';
+  }
+}
+
+/* ═══ DNS LOOKUP ═══ */
+function fillDNS(v){document.getElementById('dnsInput').value=v;}
+async function lookupDNS(){
+  const domain=document.getElementById('dnsInput').value.trim();
+  const type=document.getElementById('dnsType').value;
+  const box=document.getElementById('dnsResult');
+  if(!domain){box.innerHTML='<p style="color:var(--red)">Enter a domain name</p>';box.classList.add('visible');return;}
+  box.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted)">⏳ Querying DNS...</div>';
+  box.classList.add('visible');
+  try{
+    const res=await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=${type}`);
+    const d=await res.json();
+    if(!d.Answer||d.Answer.length===0){
+      box.innerHTML=`<p style="color:var(--orange)">No ${type} records found for ${domain}</p>`;return;
+    }
+    let rows=d.Answer.map(r=>`<div class="result-row"><span class="result-key">${type} TTL:${r.TTL}</span><span class="result-val" style="font-size:.82rem;max-width:320px;text-align:right;word-break:break-all">${r.data}</span></div>`).join('');
+    box.innerHTML=`
+      <div class="result-row"><span class="result-key">Domain</span><span class="result-val accent">${domain}</span></div>
+      <div class="result-row"><span class="result-key">Record Type</span><span class="result-val">${type}</span></div>
+      <div class="result-row"><span class="result-key">Records Found</span><span class="result-val green">${d.Answer.length}</span></div>
+      ${rows}`;
+    showToast('DNS records loaded!','success');
+  }catch(e){
+    box.innerHTML='<p style="color:var(--red)">DNS query failed — CORS may block this. Try a different record type.</p>';
+  }
+}
+
+/* ═══ MAC LOOKUP ═══ */
+function fillMAC(v){document.getElementById('macInput').value=v;}
+const macVendors={
+  '00:1A:2B':'Apple Inc.','FC:FB:FB':'Cisco Systems','00:50:56':'VMware Inc.',
+  '00:0C:29':'VMware Inc.','00:50:C2':'IEEE Registration Authority',
+  'B8:27:EB':'Raspberry Pi Foundation','DC:A6:32':'Raspberry Pi Ltd',
+  '00:1B:21':'Intel Corporation','00:23:14':'Intel Corporation',
+  '3C:5A:B4':'Google Inc.','F4:F5:D8':'Google Inc.',
+  '00:26:B9':'Dell Inc.','F0:1F:AF':'Dell Inc.',
+  '00:14:22':'Dell Inc.','00:1A:A0':'Dell Inc.',
+  'AC:16:2D':'Huawei Technologies','00:E0:FC':'Huawei Technologies',
+  '00:0D:3A':'Microsoft Corporation','00:12:5A':'Microsoft Corporation',
+};
+function lookupMAC(){
+  const raw=document.getElementById('macInput').value.trim().toUpperCase();
+  const box=document.getElementById('macResult');
+  const cleaned=raw.replace(/[:\-\.]/g,'');
+  if(!/^[0-9A-F]{12}$/.test(cleaned)){box.innerHTML='<p style="color:var(--red)">Invalid MAC address. Use format: AA:BB:CC:DD:EE:FF</p>';box.classList.add('visible');return;}
+  const formatted=cleaned.match(/.{2}/g).join(':');
+  const oui=formatted.substring(0,8);
+  const vendor=macVendors[oui]||'Unknown Vendor (OUI not in local database)';
+  const isLocal=(parseInt(cleaned[1],16)&2)!==0;
+  const isMulti=(parseInt(cleaned[0],16)&1)!==0;
+  const ouiBin=parseInt(cleaned.substring(0,2),16).toString(2).padStart(8,'0');
+  box.innerHTML=`
+    <div class="result-row"><span class="result-key">MAC Address</span><span class="result-val accent">${formatted}</span></div>
+    <div class="result-row"><span class="result-key">OUI Prefix</span><span class="result-val">${oui}</span></div>
+    <div class="result-row"><span class="result-key">Vendor</span><span class="result-val green">${vendor}</span></div>
+    <div class="result-row"><span class="result-key">Address Type</span><span class="result-val">${isMulti?'Multicast':'Unicast'}</span></div>
+    <div class="result-row"><span class="result-key">Scope</span><span class="result-val ${isLocal?'orange':''}">${isLocal?'Locally Administered':'Globally Unique (IEEE)'}</span></div>
+    <div class="result-row"><span class="result-key">NIC Portion</span><span class="result-val">${formatted.substring(9)}</span></div>
+    <div class="result-row"><span class="result-key">Binary (first octet)</span><span class="result-val" style="font-family:'Space Mono',monospace;font-size:.8rem">${ouiBin}</span></div>`;
+  box.classList.add('visible');
+  showToast('MAC looked up!','success');
+}
+
+/* ═══ PING SIMULATOR ═══ */
+function fillPing(v){document.getElementById('pingInput').value=v;}
+async function runPing(){
+  const host=document.getElementById('pingInput').value.trim()||'8.8.8.8';
+  const count=parseInt(document.getElementById('pingCount').value,10);
+  const btn=document.getElementById('pingBtn');
+  const box=document.getElementById('pingResult');
+  const log=document.getElementById('pingLog');
+  const chart=document.getElementById('pingChart');
+  const stats=document.getElementById('pingStats');
+  box.classList.add('visible');
+  btn.disabled=true; btn.textContent='Pinging...';
+  log.innerHTML=''; chart.innerHTML=''; stats.style.display='none';
+  document.getElementById('pingHost').textContent=host;
+
+  const pings=[]; let received=0;
+  const baseLatency=host.includes('8.8')||host.includes('1.1')?12:host.includes('local')?1:30+Math.random()*40;
+
+  for(let i=1;i<=count;i++){
+    await new Promise(r=>setTimeout(r,220+Math.random()*180));
+    const timeout=Math.random()<0.05;
+    const latency=timeout?null:Math.round(baseLatency+Math.random()*baseLatency*0.6+(Math.random()<0.1?50:0));
+    if(!timeout)received++;
+    if(latency!==null)pings.push(latency);
+
+    const color=timeout?'var(--red)':latency<50?'var(--green)':latency<150?'var(--yellow)':'var(--orange)';
+    log.innerHTML+=`<div style="color:${color}">${timeout?`Request timeout for icmp_seq ${i}`:`64 bytes from ${host}: icmp_seq=${i} ttl=64 time=${latency} ms`}</div>`;
+    log.scrollTop=log.scrollHeight;
+
+    const maxP=Math.max(...pings,1);
+    chart.innerHTML=pings.map((p,idx)=>{
+      const h=Math.max(8,Math.round((p/maxP)*70));
+      const c=p<50?'':p<150?' high':'';
+      return `<div class="ping-bar${c}" style="height:${h}px" title="${p}ms"></div>`;
+    }).join('') + (timeout?'<div class="ping-bar timeout" style="height:8px" title="Timeout"></div>':'');
+  }
+
+  const lost=count-received;
+  const avg=pings.length?Math.round(pings.reduce((a,b)=>a+b,0)/pings.length):0;
+  const min=pings.length?Math.min(...pings):0;
+  const max=pings.length?Math.max(...pings):0;
+  document.getElementById('pingSent').textContent=count;
+  document.getElementById('pingRecv').textContent=received;
+  document.getElementById('pingLost').textContent=`${lost} (${Math.round(lost/count*100)}%)`;
+  document.getElementById('pingMMA').textContent=`${min}ms / ${avg}ms / ${max}ms`;
+  stats.style.display='block';
+  btn.disabled=false; btn.textContent='Ping';
+  showToast('Ping complete!','success');
+}
+</script>
+</body>
+</html>
+HTMLEOF
+echo "tools.html done"
+Output
+
+tools.html done
