@@ -72,24 +72,43 @@ function doLogin(){
   const email=document.getElementById('loginEmail').value.trim();
   const pass=document.getElementById('loginPass').value;
   const err=document.getElementById('loginError');
-  err.style.display='none';
-  if(!email||!pass){err.textContent='Please fill in all fields.';err.style.display='block';return;}
-  if(!email.includes('@')){err.textContent='Please enter a valid email.';err.style.display='block';return;}
-  if(pass!=='netpulse'&&pass.length<6){err.textContent='Invalid credentials. Demo password: netpulse';err.style.display='block';return;}
 
-  // Simulate login — in production connect to your backend
+  err.style.display='none';
+
+  if(!email||!pass){
+    err.textContent='Fill all fields';
+    err.style.display='block';
+    return;
+  }
+
+  if(!email.includes('@')){
+    err.textContent='Invalid email';
+    err.style.display='block';
+    return;
+  }
+
+  if(pass!=='netpulse'){
+    err.textContent='Wrong password (demo: netpulse)';
+    err.style.display='block';
+    return;
+  }
+
   const user={
-    email,name:email.split('@')[0],
-    xp:Math.floor(Math.random()*5000)+500,
-    level:Math.floor(Math.random()*20)+1,
-    streak:Math.floor(Math.random()*30)+1,
-    plan:pass==='netpulse'?'free':'free',
-    joined:new Date().toISOString()
+    email,
+    name:email.split('@')[0],
+    xp:100,
+    level:1,
+    streak:1
   };
+
   localStorage.setItem('np_user',JSON.stringify(user));
-  showToast('Welcome back!','success');
-  setTimeout(()=>window.location.href='/pages/dashboard.html',800);
-} 
+
+  showToast('Login success','success');
+
+  setTimeout(()=>{
+    window.location.href='/pages/dashboard.html';
+  },800);
+}
  <div style="text-align:center;font-size:.75rem;color:gray;margin-bottom:10px">
   ⚠️ Educational demo project – no real authentication
 </div> 
