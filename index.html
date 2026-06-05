@@ -1,4 +1,3 @@
-cat > /home/claude/netpulse/index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,14 +22,14 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
     </a>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="nav-link active">Home</a>
-      <a href="pages/tools.html" class="nav-link">Tools</a>
-      <a href="pages/learn.html" class="nav-link">Learn</a>
-      <a href="pages/challenges.html" class="nav-link">Challenges</a>
-      <a href="pages/pricing.html" class="nav-link">Pricing</a>
+      <a href="tools.html" class="nav-link">Tools</a>
+      <a href="learn.html" class="nav-link">Learn</a>
+      <a href="challenges.html" class="nav-link">Challenges</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
     </div>
     <div class="nav-actions" id="navActions">
-      <button class="btn-ghost" onclick="window.location='pages/login.html'">Sign In</button>
-      <button class="btn-primary" onclick="window.location='pages/register.html'">Get Started</button>
+      <button class="btn-ghost" onclick="window.location='login.html'">Sign In</button>
+      <button class="btn-primary" onclick="window.location='register.html'">Get Started</button>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -49,8 +48,8 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
     </h1>
     <p class="hero-desc reveal reveal-delay-2">The only platform combining <strong>live networking tools</strong>, structured <strong>learning paths</strong>, XP-based progression, premium labs, and career-ready certifications — all in one dark, fast interface.</p>
     <div class="hero-cta reveal reveal-delay-3">
-      <a href="pages/register.html" class="btn-primary btn-lg"><span>Start Free — No Credit Card</span><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a href="pages/tools.html" class="btn-outline btn-lg">Explore Tools</a>
+      <a href="register.html" class="btn-primary btn-lg"><span>Start Free — No Credit Card</span><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="tools.html" class="btn-outline btn-lg">Explore Tools</a>
     </div>
     <div class="hero-stats reveal reveal-delay-4">
       <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">Free Tools</span></div>
@@ -89,7 +88,7 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
       <p class="section-desc">Real tools used by network engineers. No installs. No signup needed for free tools.</p>
     </div>
     <div class="tools-grid">
-      <a href="pages/tools.html#subnet" class="tool-card free reveal">
+      <a href="tools.html#subnet" class="tool-card free reveal">
         <div class="tool-icon">⚡</div><div class="tool-badge free-badge">FREE</div>
         <h3>Subnet Calculator</h3><p>Calculate network ranges, broadcast addresses, host counts instantly.</p>
         <div class="tool-tags"><span>IPv4</span><span>CIDR</span><span>Subnetting</span></div><div class="tool-arrow">→</div>
@@ -99,43 +98,43 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
         <h3>CIDR Converter</h3><p>Convert between CIDR notation and subnet masks. Supports IPv4 and IPv6.</p>
         <div class="tool-tags"><span>IPv4</span><span>IPv6</span><span>Masks</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#port" class="tool-card free reveal reveal-delay-2">
+      <a href="tools.html#port" class="tool-card free reveal reveal-delay-2">
         <div class="tool-icon">🔌</div><div class="tool-badge free-badge">FREE</div>
         <h3>Port Lookup</h3><p>Identify any port — service name, protocol, risk level, and firewall tips.</p>
         <div class="tool-tags"><span>TCP</span><span>UDP</span><span>Security</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#ip" class="tool-card free reveal">
+      <a href="tools.html#ip" class="tool-card free reveal">
         <div class="tool-icon">🌐</div><div class="tool-badge free-badge">FREE</div>
         <h3>IP Info Tool</h3><p>Get geolocation, ISP, ASN, timezone, and threat intelligence for any IP.</p>
         <div class="tool-tags"><span>GeoIP</span><span>ASN</span><span>Threat</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#dns" class="tool-card free reveal reveal-delay-1">
+      <a href="tools.html#dns" class="tool-card free reveal reveal-delay-1">
         <div class="tool-icon">🔍</div><div class="tool-badge free-badge">FREE</div>
         <h3>DNS Lookup</h3><p>Query A, AAAA, MX, NS, TXT, CNAME, SOA records. Propagation check.</p>
         <div class="tool-tags"><span>DNS</span><span>Records</span><span>Propagation</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#mac" class="tool-card free reveal reveal-delay-2">
+      <a href="tools.html#mac" class="tool-card free reveal reveal-delay-2">
         <div class="tool-icon">📡</div><div class="tool-badge free-badge">FREE</div>
         <h3>MAC Address Lookup</h3><p>Identify vendor from MAC OUI prefix. Validate MAC formats.</p>
         <div class="tool-tags"><span>OUI</span><span>Vendor</span><span>Network</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#ping" class="tool-card free reveal">
+      <a href="tools.html#ping" class="tool-card free reveal">
         <div class="tool-icon">📶</div><div class="tool-badge free-badge">FREE</div>
         <h3>Ping Simulator</h3><p>Visualize ICMP packets, latency graphs, and packet loss interactively.</p>
         <div class="tool-tags"><span>ICMP</span><span>Latency</span><span>Packets</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#whois" class="tool-card premium reveal reveal-delay-1">
+      <a href="tools.html#whois" class="tool-card premium reveal reveal-delay-1">
         <div class="tool-icon">🔐</div><div class="tool-badge premium-badge">PRO</div>
         <h3>WHOIS Lookup</h3><p>Full WHOIS data, domain history, registrar info, and ownership records.</p>
         <div class="tool-tags"><span>WHOIS</span><span>Domain</span><span>OSINT</span></div><div class="tool-arrow">→</div>
       </a>
-      <a href="pages/tools.html#ssl" class="tool-card premium reveal reveal-delay-2">
+      <a href="tools.html#ssl" class="tool-card premium reveal reveal-delay-2">
         <div class="tool-icon">🛡️</div><div class="tool-badge premium-badge">PRO</div>
         <h3>SSL Cert Checker</h3><p>Validate SSL certs, check expiry, cipher suites and chain integrity.</p>
         <div class="tool-tags"><span>SSL/TLS</span><span>Security</span><span>Certs</span></div><div class="tool-arrow">→</div>
       </a>
     </div>
-    <div class="section-cta"><a href="pages/tools.html" class="btn-outline">View All Tools →</a></div>
+    <div class="section-cta"><a href="tools.html" class="btn-outline">View All Tools →</a></div>
   </div>
 </section>
 
@@ -156,7 +155,7 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
         <p>OSI model, TCP/IP stack, IP addressing, subnetting basics.</p>
         <div class="path-meta"><span>📚 24 modules</span><span>🎯 3 quizzes</span><span>⏱ ~12 hrs</span></div>
         <div class="path-topics"><span>OSI Model</span><span>TCP/IP</span><span>Subnetting</span><span>+8 more</span></div>
-        <a href="pages/learn.html#networking" class="btn-path free">Start Free →</a>
+        <a href="learn.html#networking" class="btn-path free">Start Free →</a>
       </div>
       <div class="path-card reveal reveal-delay-1">
         <div class="path-header">
@@ -167,7 +166,7 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
         <p>Threats, attacks, firewalls, VPNs, IDS/IPS. Security+ prep.</p>
         <div class="path-meta"><span>📚 38 modules</span><span>🎯 6 quizzes</span><span>⏱ ~28 hrs</span></div>
         <div class="path-topics"><span>Threats</span><span>Firewalls</span><span>VPN</span><span>+12 more</span></div>
-        <a href="pages/learn.html#security" class="btn-path free">Start Free →</a>
+        <a href="learn.html#security" class="btn-path free">Start Free →</a>
       </div>
       <div class="path-card premium-path reveal reveal-delay-2">
         <div class="path-header"><span class="path-level advanced">ADVANCED</span><span class="premium-lock">🔒 PRO</span></div>
@@ -175,7 +174,7 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
         <p>Recon, exploitation, post-exploitation. Real lab environments. CEH prep.</p>
         <div class="path-meta"><span>📚 52 modules</span><span>🎯 12 quizzes</span><span>⏱ ~45 hrs</span></div>
         <div class="path-topics"><span>Recon</span><span>Exploit</span><span>Kali Linux</span><span>+20 more</span></div>
-        <a href="pages/pricing.html" class="btn-path premium">Unlock Pro →</a>
+        <a href="pricing.html" class="btn-path premium">Unlock Pro →</a>
       </div>
     </div>
   </div>
@@ -194,7 +193,7 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
           <div class="xp-feat"><span class="xp-icon">🏆</span><div><strong>Achievements</strong><p>50+ badges for milestones</p></div></div>
           <div class="xp-feat"><span class="xp-icon">📊</span><div><strong>Leaderboards</strong><p>Weekly rankings among your cohort</p></div></div>
         </div>
-        <a href="pages/register.html" class="btn-primary">Start Earning XP →</a>
+        <a href="register.html" class="btn-primary">Start Earning XP →</a>
       </div>
       <div class="xp-demo reveal reveal-delay-2">
         <div class="rank-card">
@@ -285,11 +284,3 @@ cat > /home/claude/netpulse/index.html << 'HTMLEOF'
 <script src="js/main.js"></script>
 </body>
 </html>
-HTMLEOF
-echo "done"
-Output
-<a href="tools.html">
-<a href="learn.html">
-<a href="dashboard.html">
-<a href="login.html">
-<a href="register.html">
