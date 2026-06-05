@@ -68,17 +68,12 @@ function oauthLogin(provider){
   showToast(`${provider} OAuth — connect your backend!`,'info');
 }
 function doLogin(){
-  const email=document.getElementById('loginEmail').value.trim();
-  const pass=document.getElementById('loginPass').value;
-  const err=document.getElementById('loginError');
+  showToast("Starting training simulation...","info");
 
-  err.style.display='none';
-
-  if(!email||!pass){
-    err.textContent='Fill all fields';
-    err.style.display='block';
-    return;
-  }
+  setTimeout(()=>{
+    window.location.href="/pages/dashboard.html";
+  },800);
+}
 
   if(!email.includes('@')){
     err.textContent='Invalid email';
